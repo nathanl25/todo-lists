@@ -33,6 +33,7 @@
 ### 24/02/2025 - Started Project
 
 - Created files and README
+- Created create and getAll routes for todo domain
 
 ---
 
