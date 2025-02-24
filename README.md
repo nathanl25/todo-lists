@@ -35,6 +35,9 @@
 - Created files and README
 - Created create and getAll routes for todo domain
 
----
+### 25/02/2025 -
+
+- Added exception handling(fields and not found)
+- Created findById route for todo domain
 
 ## What did you struggle with?
