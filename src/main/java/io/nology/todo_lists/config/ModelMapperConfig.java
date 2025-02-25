@@ -6,7 +6,7 @@ import org.modelmapper.spi.MappingContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-// import io.nology.todo_lists.todo.FilterTodoDTO;
+import io.nology.todo_lists.todo.FilterTodoDTO;
 
 @Configuration
 public class ModelMapperConfig {
@@ -16,8 +16,7 @@ public class ModelMapperConfig {
         ModelMapper mapper = new ModelMapper();
         mapper.getConfiguration().setSkipNullEnabled(false);
         mapper.typeMap(String.class, String.class).setConverter(new StringTrimConverter());
-        // mapper.typeMap(FilterTodoDTO.class, String.class).setConverter(new
-        // ToQueryConverter());
+        mapper.typeMap(FilterTodoDTO.class, String.class).setConverter(new ToQueryConverter());
         return mapper;
     }
 
@@ -31,10 +30,11 @@ public class ModelMapperConfig {
         }
     }
 
-    // private class ToQueryConverter implements Converter<FilterTodoDTO, String> {
-    // @Override
-    // public String convert(MappingContext<FilterTodoDTO, String> context) {
-    // return "%" + context.getSource().getName() + "%";
-    // }
-    // }
+    private class ToQueryConverter implements Converter<FilterTodoDTO, String> {
+
+        @Override
+        public String convert(MappingContext<FilterTodoDTO, String> context) {
+            return "%" + context.getSource().getName().trim() + "%";
+        }
+    }
 }

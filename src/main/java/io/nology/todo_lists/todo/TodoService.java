@@ -32,11 +32,12 @@ public class TodoService {
     }
 
     public List<Todo> filterByName(FilterTodoDTO data) {
+        // String searchTerm = "%" + data.getName() + "%";
+        String searchTerm = mapper.map(data, String.class);
         if (data.getIncludeDeleted()) {
-            String searchTerm = "%" + data.getName() + "%";
             return this.repo.findByNameLike(searchTerm);
         }
-        return this.repo.findByNameLikeAndIsArchivedFalse(data.getName());
+        return this.repo.findByNameLikeAndIsArchivedFalse(searchTerm);
     }
 
     public Todo updateTodo(Todo toBeUpdatedTodo, UpdateTodoDTO data) {
