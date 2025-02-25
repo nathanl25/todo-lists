@@ -38,6 +38,7 @@
 ### 25/02/2025 -
 
 - Added exception handling(fields and not found)
-- Created findById route for todo domain
+- Created getById, getByName & updateTodo route for todo domain
+- Implemented modelmapper
 
 ## What did you struggle with?
