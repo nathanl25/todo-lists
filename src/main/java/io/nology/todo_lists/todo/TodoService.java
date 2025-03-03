@@ -6,6 +6,9 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import io.nology.todo_lists.common.ValidationErrors;
+import io.nology.todo_lists.common.exceptions.ServiceValidationException;
+
 @Service
 public class TodoService {
 
@@ -24,7 +27,7 @@ public class TodoService {
     }
 
     public List<Todo> getAll() {
-        return this.repo.findAll();
+        return this.repo.findByIsArchivedFalse();
     }
 
     public Optional<Todo> getById(Long id) {
@@ -32,19 +35,36 @@ public class TodoService {
     }
 
     public List<Todo> filterByName(FilterTodoDTO data) {
-        // String searchTerm = "%" + data.getName() + "%";
-        String searchTerm = mapper.map(data, String.class);
-        if (data.getIncludeDeleted()) {
-            return this.repo.findByNameLike(searchTerm);
+        if (data.getIncludeDeleted() == true) {
+            return this.repo.findByNameLike(data.getName());
         }
-        return this.repo.findByNameLikeAndIsArchivedFalse(searchTerm);
+        return this.repo.findByNameLikeAndIsArchivedFalse(data.getName());
     }
 
     public Todo updateTodo(Todo toBeUpdatedTodo, UpdateTodoDTO data) {
         mapper.map(data, toBeUpdatedTodo);
-        // toBeUpdatedTodo.setName(data.getName());
         this.repo.save(toBeUpdatedTodo);
         return toBeUpdatedTodo;
+    }
+
+    public List<Todo> filterByNameB(String name) {
+        return this.repo.findByNameLike(name);
+    }
+
+    public void deleteById(Todo toBeDeletedTodo) throws ServiceValidationException {
+        ValidationErrors errors = new ValidationErrors();
+        if (toBeDeletedTodo.isArchived()) {
+            errors.addError("todo", "This todo has already been deleted");
+        }
+        if (!errors.isEmpty()) {
+            throw new ServiceValidationException(errors);
+        }
+        toBeDeletedTodo.setArchived(true);
+        this.repo.save(toBeDeletedTodo);
+    }
+
+    public void queryAll(FilterTodoDTO data) {
+
     }
 
 }

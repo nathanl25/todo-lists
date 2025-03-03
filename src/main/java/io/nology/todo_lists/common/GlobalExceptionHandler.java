@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ServiceValidationException.class)
-    public ResponseEntity<String> handleServiceValidationException(ServiceValidationException ex) {
-        return new ResponseEntity<String>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ValidationErrors> handleServiceValidationException(ServiceValidationException ex) {
+        return new ResponseEntity<ValidationErrors>(ex.getErrors(), HttpStatus.BAD_REQUEST);
     }
 }

@@ -22,7 +22,7 @@
 
 ## Known issues
 
----
+- Validation for query arrays missing
 
 ## Future Goals
 
@@ -40,5 +40,11 @@
 - Added exception handling(fields and not found)
 - Created getById, getByName & updateTodo route for todo domain
 - Implemented modelmapper
+
+### 03/03/2025 - Delete route
+
+- Implemented delete route for todo
+- Implemented filter/getAll routes for todo
+- Created intitial FilterTodoDTO
 
 ## What did you struggle with?
