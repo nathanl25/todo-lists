@@ -1,37 +1,32 @@
 package io.nology.todo_lists.todo;
 
+import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import io.nology.todo_lists.category.Category;
+import io.nology.todo_lists.common.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "todos")
 
-public class Todo {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class Todo extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
-    private boolean isArchived = false;
-
     public Todo() {
-
     }
 
     public Todo(String name) {
         this.name = name;
-    }
-
-    public long getId() {
-        return id;
     }
 
     public String getName() {
@@ -42,11 +37,22 @@ public class Todo {
         this.name = name;
     }
 
-    public boolean isArchived() {
-        return isArchived;
+    @ManyToMany
+    @JoinTable(name = "todo_category", joinColumns = @JoinColumn(name = "todos_id"), inverseJoinColumns = @JoinColumn(name = "categories_id"))
+    @JsonIgnoreProperties({ "todos" })
+    private Set<Category> categories;
+
+    public Set<Category> getCategories() {
+        return categories;
     }
 
-    public void setArchived(boolean isArchived) {
-        this.isArchived = isArchived;
+    public void addCategory(Category category) {
+        categories.add(category);
+        category.getTodos().add(this);
+    }
+
+    public void removeCategory(Category category) {
+        categories.remove(category);
+        category.getTodos().remove(this);
     }
 }

@@ -53,18 +53,33 @@ public class TodoService {
 
     public void deleteById(Todo toBeDeletedTodo) throws ServiceValidationException {
         ValidationErrors errors = new ValidationErrors();
-        if (toBeDeletedTodo.isArchived()) {
+        if (toBeDeletedTodo.getIsArchived() == true) {
             errors.addError("todo", "This todo has already been deleted");
         }
         if (!errors.isEmpty()) {
             throw new ServiceValidationException(errors);
         }
-        toBeDeletedTodo.setArchived(true);
+        toBeDeletedTodo.setIsArchived(true);
         this.repo.save(toBeDeletedTodo);
     }
 
     public void queryAll(FilterTodoDTO data) {
 
+    }
+
+    public List<Todo> findByIdList(List<Integer> ids) throws ServiceValidationException {
+        ValidationErrors errors = new ValidationErrors();
+        if (this.repo.existsByIdIn(ids) == false) {
+            errors.addError("todo", "Invalid todo ids");
+        }
+        if (this.repo.existsByIdInAndIsArchivedTrue(ids) == true) {
+            errors.addError("todo", "Id of deleted todo inputted");
+        }
+        if (!errors.isEmpty()) {
+            throw new ServiceValidationException(errors);
+        }
+        System.out.println("findbyidlist");
+        return this.repo.findByIdIn(ids);
     }
 
 }

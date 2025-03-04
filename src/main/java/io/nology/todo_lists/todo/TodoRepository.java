@@ -14,4 +14,10 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
     List<Todo> findByIsArchivedFalse();
 
     List<Todo> findByNameLike(String name);
+
+    List<Todo> findByIdIn(List<Integer> todoIds);
+
+    boolean existsByIdIn(List<Integer> todoIds);
+
+    boolean existsByIdInAndIsArchivedTrue(List<Integer> todoIds);
 }
