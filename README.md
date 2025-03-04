@@ -23,10 +23,18 @@
 ## Known issues
 
 - Validation for query arrays missing
+-
 
 ## Future Goals
 
 ---
+
+## Edge Cases
+
+### Category
+
+- Inputting an archived todo when updating category
+- If archived things appear for collections
 
 ## Change logs
 
@@ -46,5 +54,11 @@
 - Implemented delete route for todo
 - Implemented filter/getAll routes for todo
 - Created intitial FilterTodoDTO
+
+### 04/03/2025 - Category domain
+
+- Created abstract class base entity
+- Initial implementation of Create/Read/Update/Delete routes for category domain
+- Created collections of categories for todos and vice versa
 
 ## What did you struggle with?

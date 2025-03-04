@@ -66,6 +66,7 @@ public class TodoController {
 
     @GetMapping("/filter")
     public ResponseEntity<List<Todo>> getTest(@ModelAttribute @Valid FilterTodoDTO data) {
+        // System.out.println(data.getCategoryNames());
         List<Todo> result = this.todoService.filterByName(data);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

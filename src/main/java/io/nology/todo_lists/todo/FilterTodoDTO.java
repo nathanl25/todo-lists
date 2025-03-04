@@ -1,7 +1,10 @@
 package io.nology.todo_lists.todo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -21,8 +24,8 @@ public class FilterTodoDTO {
     // @Size(min = 1)
     // private Integer[] categoryIds;
 
-    // @Size(min = 1)
-    // private String[] categoryNames;
+    @Size(min = 1)
+    private List<@Valid @Pattern(regexp = "\\s*[a-zA-Z]+\\s*") String> categoryNames;
 
     public String getName() {
         return "%" + name + "%";
@@ -40,6 +43,13 @@ public class FilterTodoDTO {
         this.includeDeleted = includeDeleted;
     }
 
+    public void setCategoryNames(List<String> categoryNames) {
+        this.categoryNames = categoryNames;
+    }
+
+    public List<String> getCategoryNames() {
+        return categoryNames;
+    }
     // public Integer getId() {
     // return id;
     // }
