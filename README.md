@@ -23,7 +23,7 @@
 ## Known issues
 
 - Validation for query arrays missing
--
+- Cannot seed Lists
 
 ## Future Goals
 
@@ -68,6 +68,10 @@
 - Created schemas
 - Created EndToEnd test abstract class
 - Initial end-to-end tests for category
+
+### 06/03/2025 - Seeding and front end
+
+- Created data seeding
 
 ## What did you struggle with?
 
