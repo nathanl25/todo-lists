@@ -61,4 +61,12 @@
 - Initial implementation of Create/Read/Update/Delete routes for category domain
 - Created collections of categories for todos and vice versa
 
+### 05/03/2025 - Test suite created for end-to-end testing
+
+- Created factories
+- Created fixtures
+- Created schemas
+- Created EndToEnd test abstract class
+- Initial end-to-end tests for category
+
 ## What did you struggle with?

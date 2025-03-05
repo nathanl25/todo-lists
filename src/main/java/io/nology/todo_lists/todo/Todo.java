@@ -1,5 +1,6 @@
 package io.nology.todo_lists.todo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -40,9 +41,9 @@ public class Todo extends BaseEntity {
     @ManyToMany
     @JoinTable(name = "todo_category", joinColumns = @JoinColumn(name = "todos_id"), inverseJoinColumns = @JoinColumn(name = "categories_id"))
     @JsonIgnoreProperties({ "todos" })
-    private Set<Category> categories;
+    private List<Category> categories = new ArrayList<>();
 
-    public Set<Category> getCategories() {
+    public List<Category> getCategories() {
         return categories;
     }
 

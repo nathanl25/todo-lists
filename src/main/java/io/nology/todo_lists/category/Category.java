@@ -39,7 +39,7 @@ public class Category extends BaseEntity {
 
     @ManyToMany(mappedBy = "categories")
     @JsonIgnoreProperties({ "categories" })
-    private List<Todo> todos;
+    private List<Todo> todos = new ArrayList<>();
 
     public List<Todo> getTodos() {
         return todos;
