@@ -70,3 +70,8 @@
 - Initial end-to-end tests for category
 
 ## What did you struggle with?
+
+- Feature creep
+- Query Parameters
+- Queries
+- Updating collections
