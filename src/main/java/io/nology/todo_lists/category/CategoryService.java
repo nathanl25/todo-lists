@@ -24,7 +24,18 @@ public class CategoryService {
         this.todoService = todoService;
     }
 
-    public Category createCategory(CreateCategoryDTO data) {
+    public Category createCategory(CreateCategoryDTO data) throws ServiceValidationException {
+        ValidationErrors errors = new ValidationErrors();
+        // this.repo.existsByName(data.getName());
+        Optional<Category> possible = this.repo.findByNameAndIsArchivedFalse(data.getName());
+        if (possible.isPresent()) {
+            errors.addError("category", "This category already exists");
+        }
+        // if (this.repo.existsByNameAndIsArchivedFalse(data.getName())) {
+        // }
+        if (!errors.isEmpty()) {
+            throw new ServiceValidationException(errors);
+        }
         Category newCategory = new Category();
         mapper.map(data, newCategory);
         return this.repo.save(newCategory);

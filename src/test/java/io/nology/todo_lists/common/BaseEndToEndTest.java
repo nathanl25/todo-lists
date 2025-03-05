@@ -10,8 +10,10 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 
 import io.nology.todo_lists.fixtures.BaseFixture;
 import io.restassured.RestAssured;
+import lombok.Getter;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Getter
 @TestInstance(Lifecycle.PER_CLASS)
 public abstract class BaseEndToEndTest<T extends BaseFixture> {
 
