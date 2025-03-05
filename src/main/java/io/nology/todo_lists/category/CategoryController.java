@@ -29,9 +29,11 @@ public class CategoryController {
     }
 
     @PostMapping()
-    public ResponseEntity<Category> createCategory(@RequestBody @Valid CreateCategoryDTO data) {
+    public ResponseEntity<Category> createCategory(@RequestBody @Valid CreateCategoryDTO data)
+            throws ServiceValidationException {
+
         Category newCategory = this.categoryService.createCategory(data);
-        return new ResponseEntity<>(newCategory, HttpStatus.OK);
+        return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
     }
 
     @GetMapping()

@@ -23,7 +23,7 @@
 ## Known issues
 
 - Validation for query arrays missing
--
+- Cannot seed Lists
 
 ## Future Goals
 
@@ -61,4 +61,21 @@
 - Initial implementation of Create/Read/Update/Delete routes for category domain
 - Created collections of categories for todos and vice versa
 
+### 05/03/2025 - Test suite created for end-to-end testing
+
+- Created factories
+- Created fixtures
+- Created schemas
+- Created EndToEnd test abstract class
+- Initial end-to-end tests for category
+
+### 06/03/2025 - Seeding and front end
+
+- Created data seeding
+
 ## What did you struggle with?
+
+- Feature creep
+- Query Parameters
+- Queries
+- Updating collections
