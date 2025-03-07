@@ -1,0 +1,10 @@
+@use '../../scss/partials/mixins';
+.add {
+  @include mixins.button(rgb(19, 123, 19), rgb(13, 184, 13));
+}
+.delete {
+  @include mixins.button(rgb(162, 4, 4), red);
+}
+.default {
+  @include mixins.button(rgb(72, 72, 69), rgb(185, 185, 175));
+}
