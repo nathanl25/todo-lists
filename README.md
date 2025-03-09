@@ -72,6 +72,22 @@
 ### 06/03/2025 - Seeding and front end
 
 - Created data seeding
+- Connected front end to back end
+
+### 07/03/2025
+
+- Implemented removal of todos via front end
+- Created modal component
+
+### 08/03/2025
+
+- Implemented front end creation of todos
+- Added context
+
+### 09/03/2025
+
+- Implemented updating todos
+- Added description, due date, status fields to todo
 
 ## What did you struggle with?
 
@@ -79,3 +95,4 @@
 - Query Parameters
 - Queries
 - Updating collections
+- Date discrepancies

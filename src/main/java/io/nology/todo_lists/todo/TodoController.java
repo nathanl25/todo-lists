@@ -35,7 +35,7 @@ public class TodoController {
     }
 
     @PostMapping()
-    public ResponseEntity<Todo> createTodo(@RequestBody @Valid CreateTodoDTO data) {
+    public ResponseEntity<Todo> createTodo(@RequestBody @Valid CreateTodoDTO data) throws ServiceValidationException {
         Todo newTodo = this.todoService.createTodo(data);
         return new ResponseEntity<Todo>(newTodo, HttpStatus.CREATED);
     }
@@ -53,7 +53,7 @@ public class TodoController {
         return new ResponseEntity<>(todo, HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}")
+    @PostMapping("/{id}")
     public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody @Valid UpdateTodoDTO data)
             throws NotFoundException {
         Todo existingTodo = this.todoService.getById(id)

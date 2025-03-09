@@ -8,20 +8,20 @@ import org.springframework.stereotype.Service;
 
 import io.nology.todo_lists.common.ValidationErrors;
 import io.nology.todo_lists.common.exceptions.ServiceValidationException;
-import io.nology.todo_lists.todo.Todo;
-import io.nology.todo_lists.todo.TodoService;
+// import io.nology.todo_lists.todo.Todo;
+// import io.nology.todo_lists.todo.TodoService;
 
 @Service
 public class CategoryService {
 
-    private TodoService todoService;
+    // private TodoService todoService;
     private CategoryRepository repo;
     private ModelMapper mapper;
 
-    CategoryService(CategoryRepository repo, ModelMapper mapper, TodoService todoService) {
+    CategoryService(CategoryRepository repo, ModelMapper mapper) {
         this.repo = repo;
         this.mapper = mapper;
-        this.todoService = todoService;
+        // this.todoService = todoService;
     }
 
     public Category createCategory(CreateCategoryDTO data) throws ServiceValidationException {
@@ -54,11 +54,11 @@ public class CategoryService {
         if (data.getName() != null) {
             toBeUpdated.setName(data.getName());
         }
-        System.out.println();
-        if (data.getTodoIds() != null) {
-            List<Todo> todos = this.todoService.findByIdList(data.getTodoIds());
-            toBeUpdated.setTodos(todos);
-        }
+        // System.out.println();
+        // if (data.getTodoIds() != null) {
+        // List<Todo> todos = this.todoService.findByIdList(data.getTodoIds());
+        // toBeUpdated.setTodos(todos);
+        // }
         this.repo.save(toBeUpdated);
         return toBeUpdated;
     }

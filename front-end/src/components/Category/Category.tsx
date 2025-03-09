@@ -1,20 +1,24 @@
 import classes from './Category.module.scss';
 
-interface listItem {
+export interface CategoryItem {
   id: number;
   createdAt: string;
   updatedAt: string;
-  archivedAt: string;
+  // archivedAt: string;
   name: string;
   isArchived: boolean;
 }
 
-interface categoryData extends listItem {
-  todos: listItem[];
+export interface CategoryData {
+  categoriesData: CategoryItem[];
 }
 
-const Category = (data: categoryData) => {
-  if (data.todos === null) {
+interface CategoryProps {
+  data: CategoryData;
+}
+
+const Category = ({ data }: CategoryProps) => {
+  if (data.categoriesData === null) {
     console.log('category');
   } else {
     console.log('todo');

@@ -12,14 +12,22 @@ public class UpdateCategoryDTO {
     @Pattern(regexp = "\\s*[a-zA-Z]+\\S*\\s*")
     private String name;
 
-    @Size(min = 1)
-    private List<@Valid @Min(1) Integer> todoIds;
+    // @Size(min = 1)
+    // private List<@Valid @Min(1) Integer> todoIds;
 
     public String getName() {
         return name;
     }
 
-    public List<Integer> getTodoIds() {
-        return todoIds;
+    // public List<Integer> getTodoIds() {
+    // return todoIds;
+    // }
+
+    public void setName(String name) {
+        this.name = name;
     }
+
+    // public void setTodoIds(List<Integer> todoIds) {
+    // this.todoIds = todoIds;
+    // }
 }

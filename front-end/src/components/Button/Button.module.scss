@@ -8,3 +8,6 @@
 .default {
   @include mixins.button(rgb(72, 72, 69), rgb(185, 185, 175));
 }
+.hidden {
+  display: none;
+}

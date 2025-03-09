@@ -64,10 +64,10 @@ public abstract class BaseFixture {
         return todoFactory.saveWithCategories(todo, categories);
     }
 
-    public Category allocateRandomTodos(Category category) {
-        List<Todo> todos = fetchAllTodos();
-        return categoryFactory.saveWithTodos(category, todos);
-    }
+    // public Category allocateRandomTodos(Category category) {
+    // List<Todo> todos = fetchAllTodos();
+    // return categoryFactory.saveWithTodos(category, todos);
+    // }
 
     @Transactional
     public abstract void setup();

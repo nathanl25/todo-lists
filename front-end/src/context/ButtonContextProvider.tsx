@@ -1,13 +1,15 @@
-import { createContext, useState } from 'react';
+import { useState, createContext } from 'react';
+// import ButtonContext from './ButtonContext';
 
-interface ButtonContextValues {
-  editVisible: boolean;
-  toggleEditVisible: (visible: boolean) => void;
+export interface ButtonContextValues {
+  editVisibility: boolean;
+  toggleEditVisibility: () => void;
 }
 
 export const ButtonContext = createContext<ButtonContextValues>({
-  editVisible: false,
-  toggleEditVisible: (visible) => console.log(visible),
+  //   editIsVisible: false,
+  editVisibility: false,
+  toggleEditVisibility: () => console.log(),
 });
 
 interface ButtonContextProviderProps {
@@ -15,12 +17,18 @@ interface ButtonContextProviderProps {
 }
 
 const ButtonContextProvider = ({ children }: ButtonContextProviderProps) => {
-  const [editVisible, setEditVisible] = useState(false);
-  const toggleEditVisible = () => {
-    setEditVisible(!editVisible);
+  const [editIsVisible, setEditIsVisible] = useState(false);
+  const toggleEditVisibility = () => {
+    console.log('test');
+    setEditIsVisible(!editIsVisible);
   };
   return (
-    <ButtonContext.Provider value={{ toggleEditVisible, editVisible }}>
+    <ButtonContext.Provider
+      value={{
+        toggleEditVisibility,
+        editVisibility: editIsVisible,
+      }}
+    >
       {children}
     </ButtonContext.Provider>
   );

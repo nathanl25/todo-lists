@@ -29,9 +29,9 @@ public abstract class BaseEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date archivedAt;
+    // @Column
+    // @Temporal(TemporalType.TIMESTAMP)
+    // private Date archivedAt;
 
     @PrePersist
     public void onCreate() {
@@ -44,9 +44,9 @@ public abstract class BaseEntity {
     public void onUpdate() {
         Date currentTime = new Date();
         updatedAt = currentTime;
-        if (isArchived == true) {
-            archivedAt = currentTime;
-        }
+        // if (isArchived == true) {
+        // archivedAt = currentTime;
+        // }
     }
 
     public Long getId() {
@@ -61,9 +61,9 @@ public abstract class BaseEntity {
         return updatedAt;
     }
 
-    public Date getArchivedAt() {
-        return archivedAt;
-    }
+    // public Date getArchivedAt() {
+    // return archivedAt;
+    // }
 
     public boolean getIsArchived() {
         return isArchived;

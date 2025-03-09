@@ -5,6 +5,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 import Header from './components/Header/Header';
 import HomePage from './pages/HomePage/HomePage';
+// import ButtonContextProvider from './context/ButtonContextProvider';
+import TodoContextProvider from './context/TodoContextProvider';
+import CategoryContextProvider from './context/CategoryContextProvider';
 
 // import { useEffect } from 'react';
 function App() {
@@ -16,10 +19,16 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-        </Routes>
+        <TodoContextProvider>
+          <CategoryContextProvider>
+            {/* <ButtonContextProvider> */}
+            <Header />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+            </Routes>
+            {/* </ButtonContextProvider> */}
+          </CategoryContextProvider>
+        </TodoContextProvider>
       </BrowserRouter>
     </>
   );

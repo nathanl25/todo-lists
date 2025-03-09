@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -43,7 +44,7 @@ public class CategoryController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody @Valid UpdateCategoryDTO data)
+    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @ModelAttribute @Valid UpdateCategoryDTO data)
             throws NotFoundException, ServiceValidationException {
         Category toBeUpdated = this.categoryService.getById(id)
                 .orElseThrow(() -> new NotFoundException("Could not find a category with this id"));
