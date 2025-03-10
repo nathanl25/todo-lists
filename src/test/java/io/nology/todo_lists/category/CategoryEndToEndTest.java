@@ -11,6 +11,7 @@ import io.restassured.http.ContentType;
 
 import static org.hamcrest.Matchers.*;
 import static io.restassured.RestAssured.given;
+// io.restassured.filter.log.RequestLoggingFilter;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -47,6 +48,7 @@ public class CategoryEndToEndTest extends BaseEndToEndTest<CategoryFixture> {
                 .post("/category")
                 .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
+
                 .body("error", equalTo("Bad Request"));
     }
 
@@ -64,36 +66,37 @@ public class CategoryEndToEndTest extends BaseEndToEndTest<CategoryFixture> {
                 .post("/category")
                 .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
+                .log().body()
                 .body("errors.category", hasItem("This category already exists"));
 
     }
 
     @Test
     public void createCategoryReturnsACategory() {
-        // CreateCategoryDTO body = new CreateCategoryDTO();
-        // body.setName("TestCategory");
-        // given()
-        // .contentType(ContentType.JSON)
-        // .body(body)
-        // .when()
-        // .post("/category")
-        // .then()
-        // .statusCode(HttpStatus.CREATED.value())
-        // .body(matchesJsonSchemaInClasspath("schemas/category-schema.json"));
+        CreateCategoryDTO body = new CreateCategoryDTO();
+        body.setName("TestCategory");
+        given()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .when()
+                .post("/category")
+                .then()
+                .statusCode(HttpStatus.CREATED.value())
+                .body(matchesJsonSchemaInClasspath("schemas/category-schema.json"));
     }
 
     @Test
     public void createCategoryWillTrimExcessWhiteSpace() {
-        // CreateCategoryDTO body = new CreateCategoryDTO();
-        // body.setName(" TestCategory ");
-        // given()
-        // .contentType(ContentType.JSON)
-        // .body(body)
-        // .when()
-        // .post("/category")
-        // .then()
-        // .statusCode(HttpStatus.CREATED.value())
-        // .body("name", equalTo("TestCategory"));
+        CreateCategoryDTO body = new CreateCategoryDTO();
+        body.setName(" TestCategory ");
+        given()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .when()
+                .post("/category")
+                .then()
+                .statusCode(HttpStatus.CREATED.value())
+                .body("name", equalTo("TestCategory"));
     }
 
     @Test
@@ -178,6 +181,14 @@ public class CategoryEndToEndTest extends BaseEndToEndTest<CategoryFixture> {
         Category category = getFixture().getCategoryWithNoTodo();
         CreateCategoryDTO body = new CreateCategoryDTO();
         body.setName(category.getName());
+        long id = category.getId();
+
+        given()
+                .when()
+                .delete("/category/" + id)
+                .then()
+                .log().body()
+                .statusCode(HttpStatus.OK.value());
 
         given()
                 .contentType(ContentType.JSON)
@@ -185,8 +196,8 @@ public class CategoryEndToEndTest extends BaseEndToEndTest<CategoryFixture> {
                 .when()
                 .post("/category")
                 .then()
-                .statusCode(HttpStatus.BAD_REQUEST.value())
-                .body("errors.category", hasItem("This category already exists"));
-        ;
+                .log().body()
+                .statusCode(HttpStatus.CREATED.value());
+
     }
 }

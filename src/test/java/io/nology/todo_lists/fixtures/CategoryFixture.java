@@ -22,7 +22,7 @@ public class CategoryFixture extends BaseFixture {
             createTodo();
         }
         // categoryWithTodos = createCategory();
-        categoryWithTodos = allocateRandomTodos(createCategory());
+        // categoryWithTodos = allocateRandomTodos(createCategory());
         categoryWithNoTodo = createCategory();
         deletedTodo = createDeletedTodo();
     }

@@ -37,34 +37,34 @@ public class Category extends BaseEntity {
         this.name = name;
     }
 
-    @ManyToMany(mappedBy = "categories")
-    @JsonIgnoreProperties({ "categories" })
-    private List<Todo> todos = new ArrayList<>();
+    // @ManyToMany(mappedBy = "categories")
+    // @JsonIgnoreProperties({ "categories" })
+    // private List<Todo> todos = new ArrayList<>();
 
-    public List<Todo> getTodos() {
-        return todos;
-    }
+    // public List<Todo> getTodos() {
+    // return todos;
+    // }
 
-    public void setTodos(List<Todo> todos) {
-        List<Todo> copy = new ArrayList<>(this.todos);
+    // public void setTodos(List<Todo> todos) {
+    // List<Todo> copy = new ArrayList<>(this.todos);
 
-        for (Todo toRemove : copy) {
-            // System.out.println(toRemove.getName());
-            toRemove.removeCategory(this);
-        }
-        for (Todo todo : todos) {
-            addTodo(todo);
-        }
-        this.todos = todos;
-    }
+    // for (Todo toRemove : copy) {
+    // // System.out.println(toRemove.getName());
+    // toRemove.removeCategory(this);
+    // }
+    // for (Todo todo : todos) {
+    // addTodo(todo);
+    // }
+    // this.todos = todos;
+    // }
 
-    public void addTodo(Todo todo) {
-        todos.add(todo);
-        todo.getCategories().add(this);
-    }
+    // public void addTodo(Todo todo) {
+    // todos.add(todo);
+    // todo.getCategories().add(this);
+    // }
 
-    public void removeTodo(Todo todo) {
-        todos.remove(todo);
-        todo.getCategories().remove(this);
-    }
+    // public void removeTodo(Todo todo) {
+    // todos.remove(todo);
+    // todo.getCategories().remove(this);
+    // }
 }

@@ -1,0 +1,63 @@
+.todo_container {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  // bottom: 10rem;
+}
+.todo_buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+.todo_list {
+  min-height: 60vh;
+  background-color: white;
+  padding: 1.5em;
+  border-radius: 15px;
+  box-shadow: -1px 3px 5px black;
+  display: flex;
+  flex-direction: column;
+  // gap: 0.75em;
+}
+.create {
+  display: flex;
+  flex-direction: row;
+  font-family: sans-serif;
+  align-items: center;
+  //   justify-content: space-around;
+  //   justify-content: center;
+  //   width: 80%;
+  //   margin-left: auto;
+  //   margin-right: auto;
+  width: 50%;
+  gap: 1em;
+}
+.create_container {
+  // width: 80%;
+  padding-right: 10%;
+  padding-left: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: row;
+  //   justify-content: space-between;
+  // border: 2px solid black;
+  // border-top-right-radius: 15px;
+  // border-top-left-radius: 15px;
+  // box-shadow: -1px -3px 5px black;
+  // background-color: white;
+  // position: sticky;
+  // bottom: 0;
+  margin-top: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  //   margin-bottom: 2em;
+  //   z-index: 1;
+}
+// .container {
+//   padding-bottom: 5em;
+// }
+.temporary {
+  min-height: 50vh;
+}
+//

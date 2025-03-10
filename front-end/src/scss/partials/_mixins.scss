@@ -1,0 +1,20 @@
+@mixin button($color-one, $color_two) {
+  // font-family: sans-serif;
+  // font-family: Montserrat;
+  // font-family: 'DM Serif Text';
+  font-family: Hanuman;
+  // font-family: Gelasio;
+  font-weight: bold;
+  //   height: 1.5rem;
+  background-color: $color_two;
+  color: $color-one;
+  border: 3px solid $color-one;
+  transition: all 0.5s ease;
+  &:hover {
+    // zoom: 110%;
+    color: $color_two;
+    background-color: $color-one;
+    // border: 3px solid $color_two;
+    cursor: pointer;
+  }
+}

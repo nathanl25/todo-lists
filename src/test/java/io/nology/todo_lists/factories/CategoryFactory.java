@@ -24,13 +24,13 @@ public class CategoryFactory extends BaseFactory<Category> {
     @Override
     public Category create() {
         Category newCategory = new Category();
-        newCategory.setName(faker.company().buzzword());
+        newCategory.setName(faker.color().name());
         return newCategory;
     }
 
     public Category createDeleted() {
         Category newCategory = new Category();
-        newCategory.setName(faker.company().buzzword());
+        newCategory.setName(faker.color().name());
         newCategory.setIsArchived(true);
         return newCategory;
     }
@@ -40,13 +40,4 @@ public class CategoryFactory extends BaseFactory<Category> {
         return category;
     }
 
-    public Category saveWithTodos(Category category, List<Todo> todos) {
-        int amount = faker.number().numberBetween(1, 3);
-        Random rand = new Random();
-        for (int i = 0; i < amount; i++) {
-            int nextIndex = rand.nextInt(todos.size());
-            category.addTodo(todos.get(nextIndex));
-        }
-        return category;
-    }
 }

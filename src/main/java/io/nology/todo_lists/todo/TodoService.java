@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import io.nology.todo_lists.category.Category;
+import io.nology.todo_lists.category.CategoryService;
 import io.nology.todo_lists.common.ValidationErrors;
 import io.nology.todo_lists.common.exceptions.ServiceValidationException;
 
@@ -13,16 +15,33 @@ import io.nology.todo_lists.common.exceptions.ServiceValidationException;
 public class TodoService {
 
     private TodoRepository repo;
+
     private ModelMapper mapper;
 
-    TodoService(TodoRepository repo, ModelMapper mapper) {
+    private CategoryService categoryService;
+
+    TodoService(TodoRepository repo, ModelMapper mapper, CategoryService categoryService) {
         this.repo = repo;
         this.mapper = mapper;
+        this.categoryService = categoryService;
     }
 
-    public Todo createTodo(CreateTodoDTO data) {
+    public Todo createTodo(CreateTodoDTO data) throws ServiceValidationException {
+        ValidationErrors errors = new ValidationErrors();
         Todo newTodo = new Todo();
-        newTodo.setName(data.getName());
+        // newTodo.setName(data.getName());
+        if (data.getCategoryId() != 0) {
+            Optional<Category> cat = this.categoryService.getById(data.getCategoryId());
+            if (cat.isPresent()) {
+                newTodo.addCategory(cat.get());
+            } else {
+                errors.addError("Category", "This category does not exist, cannot add to todos");
+            }
+        }
+        if (!errors.isEmpty()) {
+            throw new ServiceValidationException(errors);
+        }
+        mapper.map(data, newTodo);
         return this.repo.save(newTodo);
     }
 
