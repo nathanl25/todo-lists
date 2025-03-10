@@ -11,6 +11,7 @@ import io.restassured.http.ContentType;
 
 import static org.hamcrest.Matchers.*;
 import static io.restassured.RestAssured.given;
+// io.restassured.filter.log.RequestLoggingFilter;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -47,6 +48,7 @@ public class CategoryEndToEndTest extends BaseEndToEndTest<CategoryFixture> {
                 .post("/category")
                 .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
+
                 .body("error", equalTo("Bad Request"));
     }
 
@@ -64,6 +66,7 @@ public class CategoryEndToEndTest extends BaseEndToEndTest<CategoryFixture> {
                 .post("/category")
                 .then()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
+                .log().body()
                 .body("errors.category", hasItem("This category already exists"));
 
     }
