@@ -14,6 +14,8 @@ import TodoFullView, {
 } from '../../components/TodoFullView/TodoFullView';
 import CategoryForm from '../../components/CategoryForm/CategoryForm';
 import TodoEdit from '../../components/TodoEdit/TodoEdit';
+import CategoryList from '../../containers/CategoryList/CategoryList';
+import QuickCreateBar from '../../containers/QuickCreateBar/QuickCreateBar';
 
 // interface ModalContent {
 //     title: string;
@@ -37,20 +39,34 @@ const HomePage = () => {
     setModalTitle(data.name);
     setModalShown(true);
   };
-  const showTodoForm = () => {
-    setModalContent(<TodoFullCreate showModal={setModalShown} />);
-    setModalTitle('Create Todos');
-    setModalShown(true);
-  };
-  const showCategoryForm = () => {
-    setModalContent(<CategoryForm showModal={setModalShown} />);
-    setModalTitle('Create Categories');
-    setModalShown(true);
-  };
+  // const showTodoForm = () => {
+  //   setModalContent(<TodoFullCreate showModal={setModalShown} />);
+  //   setModalTitle('Create Todos');
+  //   setModalShown(true);
+  // };
+  // const showCategoryForm = () => {
+  //   setModalContent(<CategoryForm showModal={setModalShown} />);
+  //   setModalTitle('Create Categories');
+  //   setModalShown(true);
+  // };
   return (
     <div className={classes.container}>
       {/* <ButtonContextProvider> */}
-      <section className={classes.create_container}>
+      <CategoryList
+        setModalContent={setModalContent}
+        setModalTitle={setModalTitle}
+        setModalShown={setModalShown}
+      />
+      <div className={classes.temporary}>WhiteSpace</div>
+      <div className={classes.todo_container}>
+        <section className={classes.todo_list}>
+          {todosData &&
+            todosData.map((todo) => (
+              <TodoQuickView data={todo} showAll={showTodo} key={todo.id} />
+            ))}
+        </section>
+      </div>
+      {/* <section className={classes.create_container}>
         <div className={classes.create}>
           <h1>Create Task</h1>
           <Button variant="add" onClick={showTodoForm}>
@@ -63,21 +79,8 @@ const HomePage = () => {
             <FontAwesomeIcon icon={faPlus} />
           </Button>
         </div>
-      </section>
-      <div className={classes.todo_container}>
-        {/* <section className={classes.todo_buttons}>
-            <Button onClick={toggleEditVisibility}>
-              {editVisibility ? 'Show Edit' : 'Hide Edit'}
-            </Button>
-            <Button>Delete</Button>
-          </section> */}
-        <section className={classes.todo_list}>
-          {todosData &&
-            todosData.map((todo) => (
-              <TodoQuickView data={todo} showAll={showTodo} key={todo.id} />
-            ))}
-        </section>
-      </div>
+      </section> */}
+      <QuickCreateBar />
 
       <Modal
         title={modalTitle}

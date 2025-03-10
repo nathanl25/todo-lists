@@ -7,7 +7,7 @@ import { useContext, useState } from 'react';
 import { TodoContext } from '../../context/TodoContextProvider';
 import { CategoryContext } from '../../context/CategoryContextProvider';
 import { TodoData } from '../TodoFullView/TodoFullView';
-import { formatForDateInput, formatStatus } from '../../Utilities/Formatters';
+import { formatForDateInput, formatStatus } from '../../utilities/Formatters';
 
 interface TodoFormProps {
   showModal: (val: boolean) => void;
@@ -43,7 +43,7 @@ const TodoEdit = ({ showModal, values }: TodoFormProps) => {
       setErrorMessage('This category does not currently exist');
       return;
     }
-
+    console.log(data);
     updateTodo(createBody(data))
       .then(() => {
         reset();

@@ -95,4 +95,4 @@
 - Query Parameters
 - Queries
 - Updating collections
-- Date discrepancies
+- Date formats between spring boot and react

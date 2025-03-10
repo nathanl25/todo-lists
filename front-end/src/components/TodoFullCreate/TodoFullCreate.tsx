@@ -6,7 +6,7 @@ import classes from './TodoFullCreate.module.scss';
 import { useContext, useState } from 'react';
 import { TodoContext } from '../../context/TodoContextProvider';
 import { CategoryContext } from '../../context/CategoryContextProvider';
-import { formatStatus } from '../../Utilities/Formatters';
+import { formatStatus } from '../../utilities/Formatters';
 
 interface TodoFormProps {
   showModal: (val: boolean) => void;
@@ -35,7 +35,6 @@ const TodoFullCreate = ({ showModal }: TodoFormProps) => {
 
   const submitWrapper = (data: TodoFormData) => {
     setErrorMessage('');
-    console.log(data);
     if (data.category && !categoryNames.has(data.category)) {
       setErrorMessage('This category does not currently exist');
       return;

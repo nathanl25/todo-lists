@@ -6,7 +6,7 @@ import { TodoContext } from '../../context/TodoContextProvider';
 import { useContext } from 'react';
 import { CategoryItem } from '../Category/Category';
 // import { formatWord } from '../TodoFullCreate/TodoFullCreate';
-import { formatStatus } from '../../Utilities/Formatters';
+import { formatStatus } from '../../utilities/Formatters';
 
 type Status = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETE' | 'OVERDUE';
 

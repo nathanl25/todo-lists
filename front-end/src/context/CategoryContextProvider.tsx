@@ -62,9 +62,11 @@ const CategoryContextProvider = ({ children }: ContextProviderProps) => {
       },
     });
     const newCategory = await res.json();
+    console.log(newCategory);
     if (!res.ok) {
-      //   console.log(newTodo);
-      throw new Error(newCategory.errors[0].defaultMessage);
+      // console.log(newCategory);
+      // throw new Error(newCategory.errors[0].defaultMessage);
+      throw new Error(newCategory.errors.category[0]);
     }
     setCategories([...categories, newCategory]);
     const mapCopy = categoryNames;

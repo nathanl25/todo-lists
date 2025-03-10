@@ -55,7 +55,7 @@ const TodoContextProvider = ({ children }: TodoContextProviderProps) => {
     });
     const newTodo = await res.json();
     if (!res.ok) {
-      //   console.log(newTodo);
+      console.log(newTodo);
       throw new Error(newTodo.errors[0].defaultMessage);
     }
     console.log(newTodo);
@@ -64,6 +64,7 @@ const TodoContextProvider = ({ children }: TodoContextProviderProps) => {
 
   const updateTodo = async (data: EditTodoFormData) => {
     const { id, ...rest } = data;
+    console.log(data);
     const res = await fetch(`http://127.0.0.1:8080/todo/${id}`, {
       method: 'POST',
       body: JSON.stringify(rest),
@@ -73,9 +74,10 @@ const TodoContextProvider = ({ children }: TodoContextProviderProps) => {
     });
     const newTodo = await res.json();
     if (!res.ok) {
-      //   console.log(newTodo);
+      console.log(newTodo);
       throw new Error(newTodo.errors[0].defaultMessage);
     }
+    console.log(newTodo);
     const updatedTodos = todos.map((todo) => (todo.id === id ? newTodo : todo));
     setTodos(updatedTodos);
   };

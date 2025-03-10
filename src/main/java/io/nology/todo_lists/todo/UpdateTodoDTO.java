@@ -3,6 +3,9 @@ package io.nology.todo_lists.todo;
 import java.util.Date;
 import java.util.List;
 
+import io.nology.todo_lists.todo.Todo.Status;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
@@ -45,5 +48,16 @@ public class UpdateTodoDTO {
 
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
+    }
+
+    // @Enumerated(EnumType.STRING)
+    private Status status;
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

@@ -1,6 +1,9 @@
 .container {
   display: flex;
   flex-direction: column;
+  //   justify-content: flex-end;
+  //   align-items: flex-end;
+  //   justify-content: right;
   font-family: sans-serif;
   width: 40%;
   padding-left: 5%;
@@ -8,11 +11,15 @@
 }
 .input_row {
   display: flex;
+  //   flex-direction: row;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  //   gap: 1em;
 }
 .error_row {
+  //   font-size: 1.5em;
+  //   padding: auto;
   display: flex;
   flex-direction: row;
   align-items: center;
