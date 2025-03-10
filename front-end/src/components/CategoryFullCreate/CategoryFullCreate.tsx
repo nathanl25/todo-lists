@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CategoryFormData, schema } from './schema';
 import Button from '../Button/Button';
-import classes from './CategoryForm.module.scss';
+import classes from './CategoryFullCreate.module.scss';
 import { useContext, useState } from 'react';
 import { CategoryContext } from '../../context/CategoryContextProvider';
 
@@ -10,7 +10,7 @@ interface CategoryFormProps {
   showModal: (val: boolean) => void;
 }
 
-const CategoryForm = ({ showModal }: CategoryFormProps) => {
+const CategoryFullCreate = ({ showModal }: CategoryFormProps) => {
   const { addCategory } = useContext(CategoryContext);
   const [errorMessage, setErrorMessage] = useState('');
   const {
@@ -37,8 +37,15 @@ const CategoryForm = ({ showModal }: CategoryFormProps) => {
     <form onSubmit={handleSubmit(submitWrapper)} className={classes.container}>
       <div className={classes.field}>
         <div className={classes.input_row}>
-          <label htmlFor="nameInput">Name: </label>
-          <input type="text" id="nameInput" {...register('name')} />
+          <label className={classes.label} htmlFor="nameInput">
+            Name:{' '}
+          </label>
+          <input
+            className={classes.input}
+            type="text"
+            id="nameInput"
+            {...register('name')}
+          />
         </div>
         <div className={classes.error_row}>
           {errors?.name && <p>{errors?.name?.message}</p>}
@@ -51,4 +58,4 @@ const CategoryForm = ({ showModal }: CategoryFormProps) => {
     </form>
   );
 };
-export default CategoryForm;
+export default CategoryFullCreate;

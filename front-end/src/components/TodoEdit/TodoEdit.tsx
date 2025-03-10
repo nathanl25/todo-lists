@@ -43,7 +43,7 @@ const TodoEdit = ({ showModal, values }: TodoFormProps) => {
       setErrorMessage('This category does not currently exist');
       return;
     }
-    console.log(data);
+
     updateTodo(createBody(data))
       .then(() => {
         reset();
@@ -70,8 +70,11 @@ const TodoEdit = ({ showModal, values }: TodoFormProps) => {
             {errors?.name && <p>{errors?.name?.message}</p>}
           </div>
           <div className={classes.input_row}>
-            <label htmlFor="nameInput">Name: </label>
+            <label className={classes.label} htmlFor="nameInput">
+              Name:
+            </label>
             <input
+              className={classes.input}
               type="text"
               id="nameInput"
               defaultValue={values.name}
@@ -84,8 +87,14 @@ const TodoEdit = ({ showModal, values }: TodoFormProps) => {
             {errors?.status && <p>{errors?.status?.message}</p>}
           </div>
           <div className={classes.input_row}>
-            <label htmlFor="statusInput">Status: </label>
-            <select {...register('status')} defaultValue={values.status}>
+            <label className={classes.label} htmlFor="statusInput">
+              Status
+            </label>
+            <select
+              className={classes.input}
+              {...register('status')}
+              defaultValue={values.status}
+            >
               <option value={''}></option>
               {status.map((status) => (
                 <option key={status} value={status}>
@@ -100,8 +109,11 @@ const TodoEdit = ({ showModal, values }: TodoFormProps) => {
             {errors?.description && <p>{errors?.description?.message}</p>}
           </div>
           <div className={classes.input_row}>
-            <label htmlFor="descriptionInput">Description: </label>
+            <label className={classes.label} htmlFor="descriptionInput">
+              Description:
+            </label>
             <input
+              className={classes.input}
               type="text"
               id="descriptionInput"
               defaultValue={values.description ?? undefined}
@@ -114,8 +126,14 @@ const TodoEdit = ({ showModal, values }: TodoFormProps) => {
             {errors?.category && <p>{errors?.category?.message}</p>}
           </div>
           <div className={classes.input_row}>
-            <label htmlFor="categoryInput">Category: </label>
-            <select {...register('category')} defaultValue={currentCategory}>
+            <label className={classes.label} htmlFor="categoryInput">
+              Category:
+            </label>
+            <select
+              className={classes.input}
+              {...register('category')}
+              defaultValue={currentCategory}
+            >
               <option value={''}></option>
               {[...categoryNames[Symbol.iterator]()].map((cat) => (
                 <option key={cat[0]} value={cat[0]}>
@@ -130,8 +148,11 @@ const TodoEdit = ({ showModal, values }: TodoFormProps) => {
             {errors?.dueDate && <p>{errors?.dueDate?.message}</p>}
           </div>
           <div className={classes.input_row}>
-            <label htmlFor="dueDateInput">Due Date: </label>
+            <label className={classes.label} htmlFor="dueDateInput">
+              Due Date:
+            </label>
             <input
+              className={classes.input}
               type="datetime-local"
               id="dueDateInput"
               value={

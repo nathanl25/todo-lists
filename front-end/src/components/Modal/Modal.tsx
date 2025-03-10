@@ -36,7 +36,7 @@ export const Modal = ({ children, isVisible, title, onClose }: ModalProps) => {
           <header className={classes.heading}>
             <span />
             <h2>{title}</h2>
-            <Button onClick={onClose} variant="delete">
+            <Button onClick={onClose} size="large" variant="close">
               <FontAwesomeIcon icon={faXmark} />
             </Button>
           </header>

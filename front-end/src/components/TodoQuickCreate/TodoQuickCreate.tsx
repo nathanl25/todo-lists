@@ -41,8 +41,15 @@ const TodoQuickCreate = () => {
         )}
       </div>
       <div className={classes.input_row}>
-        <label htmlFor="nameInput">Create Todo</label>
-        <input type="text" id="nameInput" {...register('name')} />
+        <label className={classes.label} htmlFor="nameInput">
+          Create Todo
+        </label>
+        <input
+          className={classes.input}
+          type="text"
+          id="nameInput"
+          {...register('name')}
+        />
         <Button variant="add">
           <FontAwesomeIcon icon={faPlus} />
         </Button>

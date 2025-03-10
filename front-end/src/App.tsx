@@ -22,7 +22,7 @@ function App() {
         <TodoContextProvider>
           <CategoryContextProvider>
             {/* <ButtonContextProvider> */}
-            <Header />
+            {/* <Header /> */}
             <Routes>
               <Route path="/" element={<HomePage />} />
             </Routes>

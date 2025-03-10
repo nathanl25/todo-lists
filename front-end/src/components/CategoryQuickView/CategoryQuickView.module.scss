@@ -1,11 +1,35 @@
 .container {
-  font-family: sans-serif;
+  // font-family: Montserrat;
+  // font-family: 'DM Serif Text';
+  // font-family: Hanuman;
+  // font-family: Gelasio;
   font-size: 1em;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 1px solid black;
-  border-radius: 4px;
+  // border-top: 1px solid black;
+  // &:first-child {
+  //   border-top: none;
+  // }
+  // gap: 1em;
+  // column-gap: 1em;
+  // background-color: beige;
+  background-color: #d8eef5;
+  box-shadow: -1px 3px 5px black;
+  margin-top: 0.5em;
+  // margin-bottom: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  // border: 1px solid black;
+  border-radius: 25px;
   align-items: center;
-  width: 49%;
+  width: 30%;
+  &:hover {
+    cursor: pointer;
+    zoom: 102%;
+  }
+}
+.content {
+  flex: 1 1 auto;
+  // width: 60%;
 }

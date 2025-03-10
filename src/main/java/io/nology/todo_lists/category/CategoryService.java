@@ -42,7 +42,7 @@ public class CategoryService {
     }
 
     public List<Category> getAll() {
-        List<Category> categories = this.repo.findAll();
+        List<Category> categories = this.repo.findByIsArchivedFalse();
         return categories;
     }
 

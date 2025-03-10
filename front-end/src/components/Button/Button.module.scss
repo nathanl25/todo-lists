@@ -8,6 +8,30 @@
 .default {
   @include mixins.button(rgb(72, 72, 69), rgb(185, 185, 175));
 }
+.close {
+  @include mixins.button(rgb(54, 40, 212), rgb(36, 123, 236));
+}
 .hidden {
   display: none;
+}
+.medium {
+  font-size: 1.2rem;
+  font-weight: bold;
+  min-width: 42px;
+  padding: 0.38rem;
+  border-radius: 6px;
+}
+.large {
+  font-size: 1.6rem;
+
+  min-width: 54px;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+.extra_large {
+  font-size: 2rem;
+
+  min-width: 65px;
+  padding: 0.63rem;
+  border-radius: 10px;
 }

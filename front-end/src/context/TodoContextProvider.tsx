@@ -5,6 +5,35 @@ import { TodoData } from '../components/TodoFullView/TodoFullView';
 import { CreateTodoFormData } from '../components/TodoFullCreate/TodoFullCreate';
 import { EditTodoFormData } from '../components/TodoEdit/TodoEdit';
 
+import React from 'react';
+import { Bounce, toast } from 'react-toastify';
+
+const successToast = (msg: string) =>
+  toast.success(msg, {
+    position: 'bottom-right',
+    autoClose: 4000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'light',
+    transition: Bounce,
+  });
+
+const failureToast = (msg: string) =>
+  toast.error(msg, {
+    position: 'bottom-right',
+    autoClose: 4000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'light',
+    transition: Bounce,
+  });
+
 export interface TodosContextValues {
   todosData: TodoData[];
   setTodos: (data: TodoData[]) => void;
@@ -40,8 +69,9 @@ const TodoContextProvider = ({ children }: TodoContextProviderProps) => {
       .then(() => {
         const updatedTodos = todos.filter((todo) => todo.id != deleteId);
         setTodos(updatedTodos);
+        successToast('Todo successfully deleted');
       })
-      .catch((e) => console.log(e));
+      .catch((e) => failureToast(e));
   };
 
   const addTodo = async (data: CreateTodoFormData) => {
@@ -92,6 +122,19 @@ const TodoContextProvider = ({ children }: TodoContextProviderProps) => {
         updateTodo,
       }}
     >
+      {/* <ToastContainer
+        position="bottom-right"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      /> */}
       {children}
     </TodoContext.Provider>
   );

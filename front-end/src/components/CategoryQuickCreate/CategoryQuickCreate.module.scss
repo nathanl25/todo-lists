@@ -1,13 +1,11 @@
 .container {
   display: flex;
   flex-direction: column;
-  //   justify-content: flex-end;
-  //   align-items: flex-end;
-  //   justify-content: right;
-  font-family: sans-serif;
-  width: 40%;
-  padding-left: 5%;
-  padding-right: 5%;
+  font-family: Montserrat;
+  font-weight: bold;
+  width: 35%;
+  margin-left: 5%;
+  margin-right: 15%;
 }
 .input_row {
   display: flex;
@@ -15,7 +13,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  //   gap: 1em;
+  // gap: 1em;
+  // max-width: 400px;
 }
 .error_row {
   //   font-size: 1.5em;

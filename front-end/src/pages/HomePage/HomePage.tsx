@@ -1,31 +1,19 @@
 import classes from './HomePage.module.scss';
-import Button from '../../components/Button/Button';
 import { useState, useContext } from 'react';
 import TodoQuickView from '../../components/TodoQuickView/TodoQuickView';
-// import { ButtonContext } from '../../context/ButtonContextProvider';
 import { Modal } from '../../components/Modal/Modal';
-// import ButtonContextProvider from '../../context/ButtonContextProvider';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import TodoFullCreate from '../../components/TodoFullCreate/TodoFullCreate';
 import { TodoContext } from '../../context/TodoContextProvider';
 import TodoFullView, {
   TodoData,
 } from '../../components/TodoFullView/TodoFullView';
-import CategoryForm from '../../components/CategoryForm/CategoryForm';
+import CategoryFullCreate from '../../components/CategoryFullCreate/CategoryFullCreate';
 import TodoEdit from '../../components/TodoEdit/TodoEdit';
 import CategoryList from '../../containers/CategoryList/CategoryList';
 import QuickCreateBar from '../../containers/QuickCreateBar/QuickCreateBar';
-
-// interface ModalContent {
-//     title: string;
-//     children: React.ReactNode;
-// }
-// const [modalContent, setModalContent] = useState<ModalContent>();
+import Landing from '../../components/Landing/Landing';
 
 const HomePage = () => {
-  // const [todo, setTodo] = useState<TodoData>();
-  //   const { toggleEditVisibility, editVisibility } = useContext(ButtonContext);
   const { todosData } = useContext(TodoContext);
   const [modalShown, setModalShown] = useState(false);
   const [modalContent, setModalContent] = useState<React.ReactNode>();
@@ -33,31 +21,35 @@ const HomePage = () => {
   const showTodo = (data: TodoData, mode: string) => {
     if (mode === 'display') {
       setModalContent(<TodoFullView data={data} />);
+      setModalTitle('Todos');
     } else {
       setModalContent(<TodoEdit showModal={setModalShown} values={data} />);
+      setModalTitle('Edit Todos');
     }
-    setModalTitle(data.name);
     setModalShown(true);
   };
-  // const showTodoForm = () => {
-  //   setModalContent(<TodoFullCreate showModal={setModalShown} />);
-  //   setModalTitle('Create Todos');
-  //   setModalShown(true);
-  // };
-  // const showCategoryForm = () => {
-  //   setModalContent(<CategoryForm showModal={setModalShown} />);
-  //   setModalTitle('Create Categories');
-  //   setModalShown(true);
-  // };
+  const showTodoForm = () => {
+    setModalContent(<TodoFullCreate showModal={setModalShown} />);
+    setModalTitle('Create Todos');
+    setModalShown(true);
+  };
+  const showCategoryForm = () => {
+    setModalContent(<CategoryFullCreate showModal={setModalShown} />);
+    setModalTitle('Create Categories');
+    setModalShown(true);
+  };
   return (
     <div className={classes.container}>
-      {/* <ButtonContextProvider> */}
       <CategoryList
         setModalContent={setModalContent}
         setModalTitle={setModalTitle}
         setModalShown={setModalShown}
       />
-      <div className={classes.temporary}>WhiteSpace</div>
+      <Landing
+        showCategoryForm={showCategoryForm}
+        showTodoForm={showTodoForm}
+      />
+
       <div className={classes.todo_container}>
         <section className={classes.todo_list}>
           {todosData &&
@@ -66,20 +58,6 @@ const HomePage = () => {
             ))}
         </section>
       </div>
-      {/* <section className={classes.create_container}>
-        <div className={classes.create}>
-          <h1>Create Task</h1>
-          <Button variant="add" onClick={showTodoForm}>
-            <FontAwesomeIcon icon={faPlus} />
-          </Button>
-        </div>
-        <div className={classes.create}>
-          <h1>Create Category</h1>
-          <Button variant="add" onClick={showCategoryForm}>
-            <FontAwesomeIcon icon={faPlus} />
-          </Button>
-        </div>
-      </section> */}
       <QuickCreateBar />
 
       <Modal
@@ -89,7 +67,6 @@ const HomePage = () => {
       >
         {modalContent}
       </Modal>
-      {/* </ButtonContextProvider> */}
     </div>
   );
 };

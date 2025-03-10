@@ -1,9 +1,11 @@
 import classes from './CategoryList.module.scss';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { CategoryContext } from '../../context/CategoryContextProvider';
-import CategoryQuickView, {
+import CategoryQuickView from '../../components/CategoryQuickView/CategoryQuickView';
+import CategoryFullView, {
   CategoryItem,
-} from '../../components/CategoryQuickView/CategoryQuickView';
+} from '../../components/CategoryFullView/CategoryFullView';
+import CategoryEdit from '../../components/CategoryEdit/CategoryEdit';
 
 interface CategoryListProps {
   setModalContent: (child: React.ReactNode) => void;
@@ -17,25 +19,23 @@ const CategoryList = ({
   setModalShown,
 }: CategoryListProps) => {
   const { categoriesData } = useContext(CategoryContext);
-
+  const [listOpen, setListOpen] = useState(false);
   const showModal = (data: CategoryItem, mode: string) => {
     if (mode === 'display') {
-      setModalContent(<p>Test</p>);
+      setModalContent(<CategoryFullView data={data} />);
+      setModalTitle('Category');
     } else {
-      setModalContent(<p>Edit Test</p>);
+      setModalContent(<CategoryEdit showModal={setModalShown} values={data} />);
+      setModalTitle('Edit Category');
     }
-    setModalTitle(data.name);
     setModalShown(true);
+    setListOpen(false);
   };
 
   return (
     <>
-      <details className={classes.container}>
-        <summary className={classes.container_summary}>
-          {/* <span>Test</span>
-          <span>Also</span> */}
-          Show Categories
-        </summary>
+      <details className={classes.container} open={listOpen}>
+        <summary className={classes.container_summary}>Show Categories</summary>
         {/* <summary>Test</summary> */}
         <div className={classes.list_wrapper}>
           {categoriesData &&
@@ -48,6 +48,7 @@ const CategoryList = ({
             ))}
         </div>
       </details>
+      <div className={classes.overlay}></div>
     </>
   );
 };

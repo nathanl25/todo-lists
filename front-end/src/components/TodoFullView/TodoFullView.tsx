@@ -1,12 +1,6 @@
-import Button from '../Button/Button';
 import classes from './TodoFullView.module.scss';
-import { faGear, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { TodoContext } from '../../context/TodoContextProvider';
-import { useContext } from 'react';
-import { CategoryItem } from '../Category/Category';
-// import { formatWord } from '../TodoFullCreate/TodoFullCreate';
 import { formatStatus } from '../../utilities/Formatters';
+import { CategoryItem } from '../CategoryFullView/CategoryFullView';
 
 type Status = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETE' | 'OVERDUE';
 
@@ -30,13 +24,6 @@ interface TodoProps {
   data: TodoData;
 }
 
-//   const { deleteTodo } = useContext(TodoContext);
-
-//   const deleteFn = async () => {
-//     deleteTodo(data.id);
-//   };
-//   const showFn = () => {
-//     showAll(data);
 export const convertDate = (rawDate: string) => {
   const time = new Date(rawDate);
   return new Intl.DateTimeFormat('en-AU', {
@@ -45,41 +32,39 @@ export const convertDate = (rawDate: string) => {
     timeZone: 'Australia/Sydney',
   }).format(time);
 };
-//   };
-const TodoFullView = ({ data }: TodoProps) => {
-  // const [errorMessage, setErrorMessage] = useState('');
-  console.log(data);
 
+const TodoFullView = ({ data }: TodoProps) => {
+  console.log(data);
   const categories = data.categories.map((cat) => cat.name).join(', ');
   return (
     <div className={classes.container}>
       <div className={classes.field}>
-        <h2>Name:</h2>
-        <h2>{data.name}</h2>
+        <h2 className={classes.key}>Name:</h2>
+        <p className={classes.value}>{data.name}</p>
       </div>
       <div className={classes.field}>
-        <h2>Status:</h2>
-        <h2>{data.status && formatStatus(data.status)}</h2>
+        <h2 className={classes.key}>Status:</h2>
+        <p className={classes.value}>
+          {data.status ? formatStatus(data.status) : 'Status not set'}
+        </p>
       </div>
       <div className={classes.field}>
-        <h2>Description:</h2>
-        <h2>{data.description}</h2>
+        <h2 className={classes.key}>Description:</h2>
+        <p className={classes.value}>
+          {data.description ?? 'No description available'}
+        </p>
       </div>
       <div className={classes.field}>
-        <h2>Due Date:</h2>
-        <h2>{data.dueDate && convertDate(data.dueDate)}</h2>
-      </div>
-      {/* <div className={classes.field}>
-        <h2>Created On:</h2>
-        <h2>{convertDate(data.createdAt)}</h2>
+        <h2 className={classes.key}>Due Date:</h2>
+        <p className={classes.value}>
+          {data.dueDate ? convertDate(data.dueDate) : 'No due date set'}
+        </p>
       </div>
       <div className={classes.field}>
-        <h2>Last Updated:</h2>
-        <h2>{convertDate(data.updatedAt)}</h2>
-      </div> */}
-      <div className={classes.field}>
-        <h2>Categories:</h2>
-        <h2>{categories}</h2>
+        <h2 className={classes.key}>Categories:</h2>
+        <p className={classes.value}>
+          {categories != '' ? categories : 'No categories associated'}
+        </p>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 .modal_wrapper {
-  z-index: 1;
+  z-index: 2;
   min-height: 100vh;
   min-width: 100%;
   //   margin: auto;
@@ -10,18 +10,22 @@
   animation: appear 0.3s linear forwards;
 }
 .modal {
-  z-index: 2;
+  z-index: 3;
   width: 80%;
-  height: 80vh;
-  margin-top: 10vh;
-  margin-left: auto;
-  margin-right: auto;
+  height: 75vh;
+  margin-top: 7vh;
+  // margin-left: auto;
+  // margin-right: auto;
   overflow-y: scroll;
-
+  position: absolute;
   //   top: 10%;
+  left: 10%;
   background-color: whitesmoke;
   border: 2px solid black;
   animation: appear 0.2s linear forwards;
+  font-family: Montserrat;
+  padding-bottom: 8vh;
+  // font-weight: bold;
 }
 .heading {
   margin-top: 1em;
@@ -31,18 +35,7 @@
   justify-content: space-between;
   margin-left: 2em;
   margin-right: 2em;
-  //   span {
-  //     ma
-  //   }
-  h2 {
-    // justify-self: center;
-    font-family: sans-serif;
-  }
-  //   Button {
-  //     // justify-self: flex-end;
-  //     // padding: 1em;
-  //     margin-right: 2em;
-  //   }
+  font-size: 1.75em;
   animation: animateDown 0.8s linear forwards;
 }
 

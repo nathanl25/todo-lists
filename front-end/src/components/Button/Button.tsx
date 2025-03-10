@@ -7,13 +7,19 @@ interface ButtonProps
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  variant?: 'default' | 'edit' | 'delete' | 'add';
+  variant?: 'default' | 'edit' | 'delete' | 'add' | 'close';
+  size?: 'medium' | 'large' | 'extra_large';
 }
 
-const Button = ({ variant = 'default', children, ...rest }: ButtonProps) => {
+const Button = ({
+  variant = 'default',
+  size = 'medium',
+  children,
+  ...rest
+}: ButtonProps) => {
   //   const { editVisibility } = useContext(ButtonContext);
   return (
-    <button className={classes[variant]} {...rest}>
+    <button className={`${classes[variant]} ${classes[size]}`} {...rest}>
       {children}
     </button>
   );

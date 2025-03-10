@@ -1,9 +1,12 @@
 .container {
-  font-family: sans-serif;
+  // font-family: sans-serif;
+  font-family: Montserrat;
+  // font-weight: bold;
   display: flex;
   flex-direction: column;
   width: 60%;
-  margin-top: 10%;
+  margin-top: 1em;
+  // margin-top: 5%;
   margin-left: auto;
   margin-right: auto;
   gap: 2em;
@@ -15,7 +18,7 @@
 .input_row {
   font-size: 2em;
   display: flex;
-  justify-content: space-between;
+  gap: 2em;
 }
 .error_row {
   font-size: 1.5em;
@@ -28,10 +31,20 @@
   }
 }
 .submit {
+  padding-top: 2em;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 .error_message {
   color: red;
+  text-align: center;
+}
+.label {
+  font-weight: bold;
+  flex: 0 1 200px;
+}
+
+.input {
+  flex: 1 1 auto;
 }

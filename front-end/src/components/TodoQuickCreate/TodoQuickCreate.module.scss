@@ -1,16 +1,19 @@
 .container {
   display: flex;
   flex-direction: column;
-  font-family: sans-serif;
-  width: 40%;
-  padding-left: 5%;
-  padding-right: 5%;
+  font-family: Montserrat;
+  font-weight: bold;
+  width: 35%;
+  margin-left: 15%;
+  margin-right: 5%;
 }
 .input_row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  // max-width: 400px;
+  // gap: 1em;
 }
 .error_row {
   display: flex;
@@ -24,4 +27,7 @@
     text-align: center;
     margin: 0;
   }
+}
+.label {
+  font-weight: bold;
 }

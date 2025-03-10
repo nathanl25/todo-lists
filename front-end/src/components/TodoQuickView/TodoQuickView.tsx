@@ -9,23 +9,13 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TodoContext } from '../../context/TodoContextProvider';
 import { useContext } from 'react';
-import { convertDate, TodoData } from '../TodoFullView/TodoFullView';
+import { TodoData } from '../TodoFullView/TodoFullView';
 
 interface TodoProps {
   data: TodoData;
   showAll: (data: TodoData, mode: string) => void;
 }
-// export interface TodoItem {
-//   id: number;
-//   createdAt: string;
-//   updatedAt: string;
-//   archivedAt: string;
-//   name: string;
-//   isArchived: boolean;
-//   dueDate: string;
-//   description: string;
-//   status: Status;
-// }
+
 const TodoQuickView = ({ data, showAll }: TodoProps) => {
   let variant;
 
@@ -57,7 +47,7 @@ const TodoQuickView = ({ data, showAll }: TodoProps) => {
     showAll(data, 'edit');
   };
   const toggleCompleted = () => {
-    const newStatus = data.status === 'COMPLETE' ? 'IN_PROGRESS' : 'COMPLETE';
+    const newStatus = data.status === 'COMPLETE' ? 'NOT_STARTED' : 'COMPLETE';
     const categoryId = data.categories[0] ? data.categories[0].id : undefined;
     const date = data.dueDate ? new Date(data.dueDate) : undefined;
     const newData = {
@@ -68,7 +58,6 @@ const TodoQuickView = ({ data, showAll }: TodoProps) => {
       category: categoryId,
       dueDate: date,
     };
-    // data.status = newStatus;
     updateTodo(newData);
   };
   return (

@@ -44,7 +44,7 @@ public class CategoryController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @ModelAttribute @Valid UpdateCategoryDTO data)
+    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody @Valid UpdateCategoryDTO data)
             throws NotFoundException, ServiceValidationException {
         Category toBeUpdated = this.categoryService.getById(id)
                 .orElseThrow(() -> new NotFoundException("Could not find a category with this id"));
