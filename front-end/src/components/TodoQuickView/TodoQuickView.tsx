@@ -1,7 +1,6 @@
 import Button from '../Button/Button';
 import classes from './TodoQuickView.module.scss';
 import {
-  faCheck,
   faGear,
   faSquare,
   faSquareCheck,
@@ -10,18 +9,28 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TodoContext } from '../../context/TodoContextProvider';
 import { useContext } from 'react';
-import { TodoData } from '../TodoFullView/TodoFullView';
+import { convertDate, TodoData } from '../TodoFullView/TodoFullView';
 
 interface TodoProps {
   data: TodoData;
   showAll: (data: TodoData, mode: string) => void;
 }
-
+// export interface TodoItem {
+//   id: number;
+//   createdAt: string;
+//   updatedAt: string;
+//   archivedAt: string;
+//   name: string;
+//   isArchived: boolean;
+//   dueDate: string;
+//   description: string;
+//   status: Status;
+// }
 const TodoQuickView = ({ data, showAll }: TodoProps) => {
   let variant;
 
   switch (data.status) {
-    case undefined:
+    case null:
     case 'NOT_STARTED':
       variant = classes.default;
       break;
@@ -36,7 +45,7 @@ const TodoQuickView = ({ data, showAll }: TodoProps) => {
       break;
   }
 
-  const { deleteTodo } = useContext(TodoContext);
+  const { deleteTodo, updateTodo } = useContext(TodoContext);
 
   const deleteFn = async () => {
     deleteTodo(data.id);
@@ -47,13 +56,36 @@ const TodoQuickView = ({ data, showAll }: TodoProps) => {
   const editFn = () => {
     showAll(data, 'edit');
   };
+  const toggleCompleted = () => {
+    const newStatus = data.status === 'COMPLETE' ? 'IN_PROGRESS' : 'COMPLETE';
+    const categoryId = data.categories[0] ? data.categories[0].id : undefined;
+    const date = data.dueDate ? new Date(data.dueDate) : undefined;
+    const newData = {
+      id: data.id,
+      name: data.name,
+      status: newStatus,
+      description: data.description,
+      category: categoryId,
+      dueDate: date,
+    };
+    // data.status = newStatus;
+    updateTodo(newData);
+  };
   return (
     <div className={`${classes.container} ${variant}`}>
       <div className={classes.check_box}>
         {data.status === 'COMPLETE' ? (
-          <FontAwesomeIcon icon={faSquareCheck} />
+          <FontAwesomeIcon
+            onClick={toggleCompleted}
+            className={classes.check_box_tick}
+            icon={faSquareCheck}
+          />
         ) : (
-          <FontAwesomeIcon icon={faSquare} />
+          <FontAwesomeIcon
+            onClick={toggleCompleted}
+            className={classes.check_box_empty}
+            icon={faSquare}
+          />
         )}
       </div>
       <div className={classes.todo}>
@@ -61,8 +93,7 @@ const TodoQuickView = ({ data, showAll }: TodoProps) => {
           {data.name}
         </h3>
         <div className={classes.buttons}>
-          <Button onClick={editFn}>Edit</Button>
-          <Button onClick={showFn}>
+          <Button onClick={editFn}>
             <FontAwesomeIcon icon={faGear} />
           </Button>
           <Button variant="delete" onClick={deleteFn}>

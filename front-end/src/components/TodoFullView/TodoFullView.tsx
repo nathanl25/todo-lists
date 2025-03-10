@@ -37,18 +37,18 @@ interface TodoProps {
 //   };
 //   const showFn = () => {
 //     showAll(data);
+export const convertDate = (rawDate: string) => {
+  const time = new Date(rawDate);
+  return new Intl.DateTimeFormat('en-AU', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+    timeZone: 'Australia/Sydney',
+  }).format(time);
+};
 //   };
 const TodoFullView = ({ data }: TodoProps) => {
   // const [errorMessage, setErrorMessage] = useState('');
   console.log(data);
-  const convertDate = (rawDate: string) => {
-    const time = new Date(rawDate);
-    return new Intl.DateTimeFormat('en-AU', {
-      dateStyle: 'medium',
-      timeStyle: 'short',
-      timeZone: 'Australia/Sydney',
-    }).format(time);
-  };
 
   const categories = data.categories.map((cat) => cat.name).join(', ');
   return (
