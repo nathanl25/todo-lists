@@ -24,13 +24,13 @@ public class CategoryFactory extends BaseFactory<Category> {
     @Override
     public Category create() {
         Category newCategory = new Category();
-        newCategory.setName(faker.company().buzzword());
+        newCategory.setName(faker.color().name());
         return newCategory;
     }
 
     public Category createDeleted() {
         Category newCategory = new Category();
-        newCategory.setName(faker.company().buzzword());
+        newCategory.setName(faker.color().name());
         newCategory.setIsArchived(true);
         return newCategory;
     }

@@ -187,6 +187,7 @@ public class CategoryEndToEndTest extends BaseEndToEndTest<CategoryFixture> {
                 .when()
                 .delete("/category/" + id)
                 .then()
+                .log().body()
                 .statusCode(HttpStatus.OK.value());
 
         given()
@@ -195,6 +196,7 @@ public class CategoryEndToEndTest extends BaseEndToEndTest<CategoryFixture> {
                 .when()
                 .post("/category")
                 .then()
+                .log().body()
                 .statusCode(HttpStatus.CREATED.value());
 
     }
