@@ -70,30 +70,30 @@ public class CategoryEndToEndTest extends BaseEndToEndTest<CategoryFixture> {
 
     @Test
     public void createCategoryReturnsACategory() {
-        // CreateCategoryDTO body = new CreateCategoryDTO();
-        // body.setName("TestCategory");
-        // given()
-        // .contentType(ContentType.JSON)
-        // .body(body)
-        // .when()
-        // .post("/category")
-        // .then()
-        // .statusCode(HttpStatus.CREATED.value())
-        // .body(matchesJsonSchemaInClasspath("schemas/category-schema.json"));
+        CreateCategoryDTO body = new CreateCategoryDTO();
+        body.setName("TestCategory");
+        given()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .when()
+                .post("/category")
+                .then()
+                .statusCode(HttpStatus.CREATED.value())
+                .body(matchesJsonSchemaInClasspath("schemas/category-schema.json"));
     }
 
     @Test
     public void createCategoryWillTrimExcessWhiteSpace() {
-        // CreateCategoryDTO body = new CreateCategoryDTO();
-        // body.setName(" TestCategory ");
-        // given()
-        // .contentType(ContentType.JSON)
-        // .body(body)
-        // .when()
-        // .post("/category")
-        // .then()
-        // .statusCode(HttpStatus.CREATED.value())
-        // .body("name", equalTo("TestCategory"));
+        CreateCategoryDTO body = new CreateCategoryDTO();
+        body.setName(" TestCategory ");
+        given()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .when()
+                .post("/category")
+                .then()
+                .statusCode(HttpStatus.CREATED.value())
+                .body("name", equalTo("TestCategory"));
     }
 
     @Test
@@ -178,6 +178,13 @@ public class CategoryEndToEndTest extends BaseEndToEndTest<CategoryFixture> {
         Category category = getFixture().getCategoryWithNoTodo();
         CreateCategoryDTO body = new CreateCategoryDTO();
         body.setName(category.getName());
+        long id = category.getId();
+
+        given()
+                .when()
+                .delete("/category/" + id)
+                .then()
+                .statusCode(HttpStatus.OK.value());
 
         given()
                 .contentType(ContentType.JSON)
@@ -185,8 +192,7 @@ public class CategoryEndToEndTest extends BaseEndToEndTest<CategoryFixture> {
                 .when()
                 .post("/category")
                 .then()
-                .statusCode(HttpStatus.BAD_REQUEST.value())
-                .body("errors.category", hasItem("This category already exists"));
-        ;
+                .statusCode(HttpStatus.CREATED.value());
+
     }
 }

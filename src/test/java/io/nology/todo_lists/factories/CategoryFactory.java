@@ -40,13 +40,4 @@ public class CategoryFactory extends BaseFactory<Category> {
         return category;
     }
 
-    // public Category saveWithTodos(Category category, List<Todo> todos) {
-    // int amount = faker.number().numberBetween(1, 3);
-    // Random rand = new Random();
-    // for (int i = 0; i < amount; i++) {
-    // int nextIndex = rand.nextInt(todos.size());
-    // category.addTodo(todos.get(nextIndex));
-    // }
-    // return category;
-    // }
 }

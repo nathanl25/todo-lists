@@ -89,6 +89,11 @@
 - Implemented updating todos
 - Added description, due date, status fields to todo
 
+### 10/03/2025
+
+- Implemented all MVP
+- Added toast notifications
+
 ## What did you struggle with?
 
 - Feature creep

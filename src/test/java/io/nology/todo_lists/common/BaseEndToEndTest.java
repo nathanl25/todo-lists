@@ -1,7 +1,9 @@
 package io.nology.todo_lists.common;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+// import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+// import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +29,13 @@ public abstract class BaseEndToEndTest<T extends BaseFixture> {
         this.fixture = fixture;
     }
 
-    @BeforeAll
+    @BeforeEach
     public void setup() {
         RestAssured.port = port;
         this.fixture.setup();
     }
 
-    @AfterAll
+    @AfterEach
     public void tearDown() {
         this.fixture.tearDown();
     }
