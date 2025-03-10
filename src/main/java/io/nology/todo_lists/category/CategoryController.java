@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.nology.todo_lists.common.exceptions.NotFoundException;
 import io.nology.todo_lists.common.exceptions.ServiceValidationException;
+import io.nology.todo_lists.todo.Todo;
 import jakarta.validation.Valid;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/category")
@@ -60,4 +62,13 @@ public class CategoryController {
         this.categoryService.deleteById(existingCategory);
         return new ResponseEntity<>("Successfully deleted", HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Category> getCategoryById(@PathVariable Long id) throws Throwable {
+        // return new String();
+        Category cat = this.categoryService.getById(id)
+                .orElseThrow(() -> new NotFoundException("Cannot find a category with this id"));
+        return new ResponseEntity<>(cat, HttpStatus.OK);
+    }
+
 }

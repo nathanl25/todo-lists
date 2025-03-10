@@ -9,22 +9,26 @@ import lombok.Getter;
 @Component
 public class CategoryFixture extends BaseFixture {
 
+    // @Getter
+    // private Category categoryWithNoTodo;
     @Getter
-    private Category categoryWithNoTodo;
+    private Category category;
     @Getter
-    private Category categoryWithTodos;
+    private Category deletedCategory;
     @Getter
     private Todo deletedTodo;
+    @Getter
+    private Todo todo;
 
     @Override
     public void setup() {
         for (int i = 0; i < 3; i++) {
             createTodo();
         }
-        // categoryWithTodos = createCategory();
-        // categoryWithTodos = allocateRandomTodos(createCategory());
-        categoryWithNoTodo = createCategory();
+        deletedCategory = createDeletedCategory();
+        category = createCategory();
         deletedTodo = createDeletedTodo();
+        todo = createTodo();
     }
 
 }

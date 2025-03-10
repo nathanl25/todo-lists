@@ -26,6 +26,7 @@ public class CategoryEndToEndTest extends BaseEndToEndTest<CategoryFixture> {
     // To be tested:
     // Should return not deleted only
     // Should take in query parameters
+    // Delete category -> check todo
     @Test
     public void getWithNoQueryReturnsListOfCategories() {
         given()
@@ -55,7 +56,7 @@ public class CategoryEndToEndTest extends BaseEndToEndTest<CategoryFixture> {
     // Consider - case sensitivity?
     @Test
     public void cannotCreateCategoryIfAlreadyExists() {
-        Category category = getFixture().getCategoryWithNoTodo();
+        Category category = getFixture().getCategory();
         CreateCategoryDTO body = new CreateCategoryDTO();
         body.setName(category.getName());
 
@@ -101,84 +102,155 @@ public class CategoryEndToEndTest extends BaseEndToEndTest<CategoryFixture> {
 
     @Test
     public void getCategoryByIdReturnsACategory() {
+        long catId = getFixture().getCategory().getId();
+        given()
+                .when()
+                .get("/category/" + catId).then().statusCode(HttpStatus.OK.value())
+                .body(matchesJsonSchemaInClasspath("schemas/category-schema.json"));
     }
 
     @Test
     public void getCategoryByIdDoesNotWorkWithAnInvalidId() {
+        given()
+                .when()
+                .get("/category/0")
+                .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
+        given()
+                .when()
+                .get("/category/invalidId")
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value());
     }
 
     @Test
     public void getCategoryByIdDoesNotWorkIfCategoryIsDeleted() {
+        long deletedId = getFixture().getDeletedCategory().getId();
+        given()
+                .when()
+                .get("/category/" + deletedId)
+                .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
     }
 
     @Test
     public void updateCategoryCanUpdateName() {
-    }
+        long catId = getFixture().getCategory().getId();
+        UpdateCategoryDTO body = new UpdateCategoryDTO();
+        body.setName("New");
+        given()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .when()
+                .patch("/category/" + catId)
+                .then()
+                .log().body()
+                .statusCode(HttpStatus.OK.value())
+                .body("name", equalTo("New"));
 
-    @Test
-    public void updateCategoryCanAddOneTodo() {
-    }
-
-    @Test
-    public void updateCategoryCanAddMultipleTodos() {
-    }
-
-    @Test
-    public void updateCategoryCanUpdateNameAndTodos() {
-    }
-
-    @Test
-    public void updateCategoryWillReplaceExistingTodos() {
     }
 
     @Test
     public void updateCategoryDoesNotWorkWithInvalidId() {
+        UpdateCategoryDTO body = new UpdateCategoryDTO();
+        body.setName("New");
+        given()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .when()
+                .patch("/category/0")
+                .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
+        given()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .when()
+                .patch("/category/invalidId")
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value());
 
     }
 
     @Test
     public void updateCategoryDoesNotWorkWithArchivedCategory() {
-
-    }
-
-    @Test
-    public void updateCategoryDoesNotWorkIfAnyInvalidTodos() {
-
-    }
-
-    @Test
-    public void updateCategoryDoesNotWorkIfAnyDeletedTodos() {
-
+        UpdateCategoryDTO body = new UpdateCategoryDTO();
+        body.setName("New");
+        long deletedId = this.getFixture().getDeletedCategory().getId();
+        given()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .when()
+                .patch("/category/" + deletedId)
+                .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
     }
 
     @Test
     public void updateNameDoesNotWorkIfNameWillBeDuplicated() {
+        CreateCategoryDTO body = new CreateCategoryDTO();
+        body.setName("TestCategory");
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .post("/category");
+
+        long id = this.getFixture().getCategory().getId();
+        given()
+                .contentType(ContentType.JSON)
+                .body(body)
+                .when()
+                .patch("/category/" + id)
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value());
 
     }
 
     @Test
     public void deleteCategorySetsIsArchivedToTrue() {
+        long catId = this.getFixture().createCategory().getId();
+
+        given()
+                .when()
+                .delete("/category/" + catId)
+                .then()
+                .statusCode(HttpStatus.OK.value());
+
+        given()
+                .when()
+                .get("/category/" + catId)
+                .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
     }
 
     @Test
     void deleteCategoryWillNotWorkOnAnInvalidId() {
+
+        given()
+                .when()
+                .delete("/category/0")
+                .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
+        given()
+                .when()
+                .delete("/category/InvalidId")
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value());
     }
 
     @Test
     void deleteCategoryWillNotWorkIfAlreadyDeleted() {
-    }
-
-    @Test
-    void deletedCategoriesWillNotAppearInGetUnlessSpecified() {
-    }
-
-    @Test
-    void deletedCategoryWillAppearAsDeletedInTodoEntity() {
+        long deletedId = getFixture().getDeletedCategory().getId();
+        given()
+                .when()
+                .delete("/category/" + deletedId)
+                .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
     }
 
     @Test
     public void canCreateCategoryIfAlreadyExistsButDeleted() {
-        Category category = getFixture().getCategoryWithNoTodo();
+        Category category = getFixture().getCategory();
         CreateCategoryDTO body = new CreateCategoryDTO();
         body.setName(category.getName());
         long id = category.getId();

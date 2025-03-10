@@ -9,5 +9,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     // boolean existsByNameAndIsArchivedFalse(String name);
     Optional<Category> findByNameAndIsArchivedFalse(String name);
 
+    Optional<Category> findByIdAndIsArchivedFalse(long id);
+
     List<Category> findByIsArchivedFalse();
 }
