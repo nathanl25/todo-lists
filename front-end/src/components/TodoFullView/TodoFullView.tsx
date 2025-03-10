@@ -1,6 +1,6 @@
 import classes from './TodoFullView.module.scss';
-import { formatStatus } from '../../utilities/Formatters';
 import { CategoryItem } from '../CategoryFullView/CategoryFullView';
+import { formatStatus } from '../../utilities/Formatters';
 
 type Status = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETE' | 'OVERDUE';
 

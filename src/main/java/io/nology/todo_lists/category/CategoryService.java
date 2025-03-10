@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.github.javafaker.Cat;
+
 import io.nology.todo_lists.common.ValidationErrors;
 import io.nology.todo_lists.common.exceptions.ServiceValidationException;
 // import io.nology.todo_lists.todo.Todo;
@@ -26,13 +28,7 @@ public class CategoryService {
 
     public Category createCategory(CreateCategoryDTO data) throws ServiceValidationException {
         ValidationErrors errors = new ValidationErrors();
-        // this.repo.existsByName(data.getName());
-        Optional<Category> possible = this.repo.findByNameAndIsArchivedFalse(data.getName());
-        if (possible.isPresent()) {
-            errors.addError("category", "This category already exists");
-        }
-        // if (this.repo.existsByNameAndIsArchivedFalse(data.getName())) {
-        // }
+        checkForExistingCategory(data.getName(), errors);
         if (!errors.isEmpty()) {
             throw new ServiceValidationException(errors);
         }
@@ -47,18 +43,26 @@ public class CategoryService {
     }
 
     public Optional<Category> getById(Long id) {
-        return this.repo.findById(id);
+        // return this.repo.findById(id);
+        return this.repo.findByIdAndIsArchivedFalse(id);
+    }
+
+    private void checkForExistingCategory(String name, ValidationErrors errors) {
+        Optional<Category> possibility = this.repo.findByNameAndIsArchivedFalse(name);
+        if (possibility.isPresent()) {
+            errors.addError("category", "This category already exists");
+        }
     }
 
     public Category updateCategory(Category toBeUpdated, UpdateCategoryDTO data) throws ServiceValidationException {
         if (data.getName() != null) {
+            ValidationErrors errors = new ValidationErrors();
+            checkForExistingCategory(data.getName(), errors);
+            if (!errors.isEmpty()) {
+                throw new ServiceValidationException(errors);
+            }
             toBeUpdated.setName(data.getName());
         }
-        // System.out.println();
-        // if (data.getTodoIds() != null) {
-        // List<Todo> todos = this.todoService.findByIdList(data.getTodoIds());
-        // toBeUpdated.setTodos(todos);
-        // }
         this.repo.save(toBeUpdated);
         return toBeUpdated;
     }
