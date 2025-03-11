@@ -94,6 +94,11 @@
 - Implemented all MVP
 - Added toast notifications
 
+### 11/03/2025
+
+- Finished writing end to end tests for categories
+- Implemented selecting multiple categories when creating todos
+
 ## What did you struggle with?
 
 - Feature creep
