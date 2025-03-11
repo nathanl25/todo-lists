@@ -2,7 +2,7 @@ import classes from './HomePage.module.scss';
 import { useState, useContext } from 'react';
 import TodoQuickView from '../../components/TodoQuickView/TodoQuickView';
 import { Modal } from '../../components/Modal/Modal';
-import TodoFullCreate from '../../components/TodoFullCreate/TodoFullCreate';
+// import TodoFullCreate from '../../components/TodoFullCreate/TodoFullCreate';
 import { TodoContext } from '../../context/TodoContextProvider';
 import TodoFullView, {
   TodoData,
@@ -12,7 +12,8 @@ import CategoryFullCreate from '../../components/CategoryFullCreate/CategoryFull
 import CategoryList from '../../containers/CategoryList/CategoryList';
 import QuickCreateBar from '../../containers/QuickCreateBar/QuickCreateBar';
 import Landing from '../../components/Landing/Landing';
-import TodoEditV2 from '../../components/TodoEdit/TodoEditV2';
+// import TodoEditV2 from '../../components/TodoEdit/TodoEditV2';
+import TodoForm from '../../components/TodoForm/TodoForm';
 
 const HomePage = () => {
   const { todosData } = useContext(TodoContext);
@@ -25,13 +26,16 @@ const HomePage = () => {
       setModalTitle('Todos');
     } else {
       // setModalContent(<TodoEdit showModal={setModalShown} values={data} />);
-      setModalContent(<TodoEditV2 showModal={setModalShown} values={data} />);
+      setModalContent(
+        <TodoForm showModal={setModalShown} values={data} isEditMode={true} />
+      );
       setModalTitle('Edit Todos');
     }
     setModalShown(true);
   };
   const showTodoForm = () => {
-    setModalContent(<TodoFullCreate showModal={setModalShown} />);
+    // setModalContent(<TodoFullCreate showModal={setModalShown} />);
+    setModalContent(<TodoForm showModal={setModalShown} />);
     setModalTitle('Create Todos');
     setModalShown(true);
   };

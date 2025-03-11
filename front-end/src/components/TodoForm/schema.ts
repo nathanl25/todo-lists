@@ -21,13 +21,15 @@ export const schema = z.object({
     })
     .optional()
     .or(z.literal('').transform(() => undefined)),
-  category: z.array(
-    z.object({
-      label: z.string(),
-      value: z.string(),
-      id: z.number(),
-    })
-  ),
+  category: z
+    .array(
+      z.object({
+        label: z.string(),
+        value: z.string(),
+        id: z.number(),
+      })
+    )
+    .optional(),
   dueDate: z
     .string()
     .transform((time) => (time === '' ? undefined : new Date(time)))
@@ -39,4 +41,4 @@ export const schema = z.object({
   // .or(z.literal('').transform(() => undefined)),
 });
 
-export type TodoFormData = z.infer<typeof schema>;
+export type FormData = z.infer<typeof schema>;

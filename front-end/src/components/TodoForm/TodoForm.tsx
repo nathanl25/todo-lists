@@ -1,45 +1,83 @@
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { TodoFormData, schema, status } from './schema';
+import { FormData, schema, status } from './schema';
 import Button from '../Button/Button';
-import classes from './TodoFullCreate.module.scss';
+import classes from './TodoForm.module.scss';
 import { useContext, useState } from 'react';
 import { TodoContext } from '../../context/TodoContextProvider';
 import { CategoryContext } from '../../context/CategoryContextProvider';
-import { formatStatus } from '../../utilities/Formatters';
+import { TodoData } from '../TodoFullView/TodoFullView';
+import { formatForDateInput, formatStatus } from '../../utilities/Formatters';
+import React from 'react';
+import Select from 'react-select';
 
 interface TodoFormProps {
   showModal: (val: boolean) => void;
+  values?: TodoData;
+  isEditMode?: boolean;
 }
+
 export interface CreateTodoFormData {
   name: string;
   description?: string;
-  category?: number;
+  category?: number[];
   dueDate?: Date;
   status?: string;
 }
 
-const TodoFullCreate = ({ showModal }: TodoFormProps) => {
-  const { addTodo } = useContext(TodoContext);
+export interface EditTodoFormData extends CreateTodoFormData {
+  id: number;
+}
+
+// interface CategoryOption {
+//   readonly value: string;
+//   readonly label: string;
+// }
+
+// interface FormData {
+//   name: string;
+//   status?: 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETE' | 'OVERDUE' | undefined;
+//   description?: string | undefined;
+//   category?: { label: string; value: string; id: number }[];
+//   dueDate?: Date | undefined;
+// }
+
+const TodoForm = ({ showModal, values, isEditMode = false }: TodoFormProps) => {
+  // const currentCategory = values.categories?.[0]?.name;
+  const { updateTodo, addTodo } = useContext(TodoContext);
   const [errorMessage, setErrorMessage] = useState('');
-  const { categoryNames } = useContext(CategoryContext);
+  const { categoryNames, categoriesData } = useContext(CategoryContext);
+  const catOptions = categoriesData.map((cat) => ({
+    label: cat.name,
+    value: cat.name,
+    id: cat.id,
+  }));
+  console.log(values);
+  const currentCat = values
+    ? values.categories.map((cat) => ({
+        label: cat.name,
+        value: cat.name,
+        id: cat.id,
+      }))
+    : undefined;
   const {
     handleSubmit,
     register,
     reset,
+    getValues,
+    control,
     formState: { errors },
-  } = useForm<TodoFormData>({
+  } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
-  const submitWrapper = (data: TodoFormData) => {
+  const submitWrapper = (data: FormData) => {
     setErrorMessage('');
-    if (data.category && !categoryNames.has(data.category)) {
-      setErrorMessage('This category does not currently exist');
-      return;
-    }
+    console.log(data);
+    const altData = createBody(data);
+    console.log(altData);
 
-    addTodo(createBody(data))
+    (isEditMode ? updateTodo(createBody(data)) : addTodo(createBody(data)))
       .then(() => {
         reset();
         showModal(false);
@@ -47,10 +85,12 @@ const TodoFullCreate = ({ showModal }: TodoFormProps) => {
       .catch((e) => setErrorMessage(e.message));
   };
 
-  const createBody = (data: TodoFormData) => {
+  const createBody = (data: FormData) => {
     const { category, ...rest } = data;
-    const categoryId = category ? categoryNames.get(category) : undefined;
-    return { ...rest, categoryId };
+    const categoryIds = category && category.map((cat) => cat.id);
+    const id = values ? values.id : 0;
+
+    return { ...rest, categoryIds, id };
   };
 
   return (
@@ -71,6 +111,7 @@ const TodoFullCreate = ({ showModal }: TodoFormProps) => {
               className={classes.input}
               type="text"
               id="nameInput"
+              defaultValue={values && values.name}
               {...register('name')}
             />
           </div>
@@ -81,12 +122,12 @@ const TodoFullCreate = ({ showModal }: TodoFormProps) => {
           </div>
           <div className={classes.input_row}>
             <label className={classes.label} htmlFor="statusInput">
-              Status:
+              Status
             </label>
             <select
               className={classes.input}
-              id="statusInput"
               {...register('status')}
+              defaultValue={values && values.status}
             >
               <option value={''}></option>
               {status.map((status) => (
@@ -106,9 +147,10 @@ const TodoFullCreate = ({ showModal }: TodoFormProps) => {
               Description:
             </label>
             <input
+              className={classes.input}
               type="text"
               id="descriptionInput"
-              className={classes.input}
+              defaultValue={values && values.description}
               {...register('description')}
             />
           </div>
@@ -121,18 +163,19 @@ const TodoFullCreate = ({ showModal }: TodoFormProps) => {
             <label className={classes.label} htmlFor="categoryInput">
               Category:
             </label>
-            <select
-              className={classes.input}
-              id="categoryInput"
-              {...register('category')}
-            >
-              <option value={''}></option>
-              {[...categoryNames[Symbol.iterator]()].map((cat) => (
-                <option key={cat[0]} value={cat[0]}>
-                  {cat[0]}
-                </option>
-              ))}
-            </select>
+            <Controller
+              control={control}
+              name="category"
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  isMulti
+                  options={catOptions}
+                  className={classes.input}
+                  defaultValue={currentCat}
+                />
+              )}
+            />
           </div>
         </div>
         <div className={classes.field}>
@@ -144,19 +187,30 @@ const TodoFullCreate = ({ showModal }: TodoFormProps) => {
               Due Date:
             </label>
             <input
+              className={classes.input}
               type="datetime-local"
               id="dueDateInput"
-              className={classes.input}
+              value={
+                values && values.dueDate
+                  ? formatForDateInput(values.dueDate)
+                  : undefined
+              }
               {...register('dueDate')}
             />
           </div>
         </div>
         <div className={classes.submit}>
-          <Button size="large">Submit</Button>
+          <Button
+            onClick={() => {
+              console.log(getValues());
+            }}
+          >
+            Submit
+          </Button>
         </div>
         <div className={classes.error_message}>{errorMessage}</div>
       </form>
     </>
   );
 };
-export default TodoFullCreate;
+export default TodoForm;

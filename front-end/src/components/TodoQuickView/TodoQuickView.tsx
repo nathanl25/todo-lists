@@ -48,7 +48,7 @@ const TodoQuickView = ({ data, showAll }: TodoProps) => {
   };
   const toggleCompleted = () => {
     const newStatus = data.status === 'COMPLETE' ? 'NOT_STARTED' : 'COMPLETE';
-    const categoryId = data.categories[0] ? data.categories[0].id : undefined;
+    const categoryId = data.categories.map((cat) => cat.id);
     const date = data.dueDate ? new Date(data.dueDate) : undefined;
     const newData = {
       id: data.id,

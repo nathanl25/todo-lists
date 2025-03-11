@@ -35,7 +35,7 @@ public class TodoController {
     }
 
     @PostMapping()
-    public ResponseEntity<Todo> createTodo(@RequestBody @Valid CreateTodoDTO data) throws ServiceValidationException {
+    public ResponseEntity<Todo> createTodo(@RequestBody @Valid CreateTodoDTO data) throws NotFoundException {
         Todo newTodo = this.todoService.createTodo(data);
         return new ResponseEntity<Todo>(newTodo, HttpStatus.CREATED);
     }

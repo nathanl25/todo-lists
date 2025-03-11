@@ -27,6 +27,11 @@
 
 ## Future Goals
 
+- Sorting
+- Filtering
+- Unit testing
+- Dynamic Queries
+
 ---
 
 ## Edge Cases
@@ -97,6 +102,12 @@
 ### 11/03/2025
 
 - Finished writing end to end tests for categories
+- Implemented selecting multiple categories when editing todos
+
+### 12/03/2025
+
+- Consolidated create and edit todo to single form
+- Handled edge cases regarding multiple categories for todos
 - Implemented selecting multiple categories when creating todos
 
 ## What did you struggle with?

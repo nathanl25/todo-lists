@@ -27,21 +27,17 @@ public class TodoService {
         this.categoryService = categoryService;
     }
 
-    public Todo createTodo(CreateTodoDTO data) throws ServiceValidationException {
-        ValidationErrors errors = new ValidationErrors();
+    public Todo createTodo(CreateTodoDTO data) throws NotFoundException {
+        // ValidationErrors errors = new ValidationErrors();
         Todo newTodo = new Todo();
-        // newTodo.setName(data.getName());
-        if (data.getCategoryId() != 0) {
-            Optional<Category> cat = this.categoryService.getById(data.getCategoryId());
-            if (cat.isPresent()) {
-                newTodo.addCategory(cat.get());
-            } else {
-                errors.addError("Category", "This category does not exist, cannot add to todos");
-            }
+
+        if (data.hasCategoryIds()) {
+            List<Category> cats = this.categoryService.getByids(data.getCategoryIds());
+            newTodo.setCategories(cats);
         }
-        if (!errors.isEmpty()) {
-            throw new ServiceValidationException(errors);
-        }
+        // if (!errors.isEmpty()) {
+        // throw new ServiceValidationException(errors);
+        // }
         mapper.map(data, newTodo);
         return this.repo.save(newTodo);
     }

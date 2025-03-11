@@ -1,9 +1,9 @@
 import { useState, createContext, useEffect } from 'react';
 // import {  } from '../components/TodoQuickView/TodoQuickView';
-import { TodoFormData } from '../components/TodoFullCreate/schema';
+import { FormData } from '../components/TodoForm/schema';
 import { TodoData } from '../components/TodoFullView/TodoFullView';
-import { CreateTodoFormData } from '../components/TodoFullCreate/TodoFullCreate';
-import { EditTodoFormData } from '../components/TodoEdit/TodoEditV2';
+import { CreateTodoFormData } from '../components/TodoForm/TodoForm';
+import { EditTodoFormData } from '../components/TodoForm/TodoForm';
 
 import React from 'react';
 import { Bounce, toast } from 'react-toastify';

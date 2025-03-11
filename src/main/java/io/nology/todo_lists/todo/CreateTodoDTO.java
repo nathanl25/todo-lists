@@ -3,6 +3,7 @@ package io.nology.todo_lists.todo;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import io.nology.todo_lists.common.validators.IsLowercase;
 import io.nology.todo_lists.todo.Todo.Status;
@@ -26,25 +27,24 @@ public class CreateTodoDTO {
         return name;
     }
 
-    // @Size(min = 1)
-    // private List<@Valid @Min(value = 1, message = "Invalid category inputted")
-    // Integer> todoIds;
-
-    // public List<Integer> getTodoIds() {
-    // return todoIds;
-    // }
-
     private Status status;
 
     public Status getStatus() {
         return status;
     }
 
-    @Min(value = 0, message = "Invalid category ID inputted")
-    private long categoryId;
+    private Set<@Valid @Min(value = 1, message = "Invalid category inputted") Long> categoryIds;
 
-    public long getCategoryId() {
-        return categoryId;
+    public Set<Long> getCategoryIds() {
+        return categoryIds;
+    }
+
+    public void setCategoryIds(Set<Long> categoryIds) {
+        this.categoryIds = categoryIds;
+    }
+
+    public boolean hasCategoryIds() {
+        return categoryIds != null;
     }
 
     @Size(min = 1, max = 255, message = "Description must be between 1 and 255 characters")

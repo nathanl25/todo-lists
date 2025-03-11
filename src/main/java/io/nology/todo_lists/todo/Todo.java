@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -82,7 +83,9 @@ public class Todo extends BaseEntity {
     }
 
     public List<Category> getCategories() {
-        return categories;
+        return categories.stream()
+                .filter(cat -> !cat.getIsArchived())
+                .collect(Collectors.toList());
     }
 
     public void addCategory(Category category) {
