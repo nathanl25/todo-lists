@@ -90,8 +90,8 @@ public class Todo extends BaseEntity {
         // category.getTodos().add(this);
     }
 
-    public void removeCategory(Category category) {
-        categories.remove(category);
+    public void removeCategories() {
+        categories.clear();
         // category.getTodos().remove(this);
     }
 

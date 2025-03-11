@@ -21,10 +21,13 @@ export const schema = z.object({
     })
     .optional()
     .or(z.literal('').transform(() => undefined)),
-  category: z
-    .string()
-    .optional()
-    .or(z.literal('').transform(() => undefined)),
+  category: z.array(
+    z.object({
+      label: z.string(),
+      value: z.string(),
+      id: z.number(),
+    })
+  ),
   dueDate: z
     .string()
     .transform((time) => (time === '' ? undefined : new Date(time)))

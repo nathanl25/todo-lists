@@ -37,9 +37,7 @@ const CategoryFullCreate = ({ showModal }: CategoryFormProps) => {
     <form onSubmit={handleSubmit(submitWrapper)} className={classes.container}>
       <div className={classes.field}>
         <div className={classes.input_row}>
-          <label className={classes.label} htmlFor="nameInput">
-            Name:{' '}
-          </label>
+          <label className={classes.label} htmlFor="nameInput"></label>
           <input
             className={classes.input}
             type="text"

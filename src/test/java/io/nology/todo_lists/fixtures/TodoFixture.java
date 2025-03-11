@@ -4,33 +4,24 @@ import org.springframework.stereotype.Component;
 
 import io.nology.todo_lists.category.Category;
 import io.nology.todo_lists.todo.Todo;
+import lombok.Getter;
 
 @Component
 public class TodoFixture extends BaseFixture {
 
+    @Getter
     private Todo todoWithNoCategory;
+    @Getter
     private Todo todoWithCategories;
+    @Getter
     private Category deletedCategory;
 
     @Override
     public void setup() {
-        for (int i = 0; i < 3; i++) {
-            createCategory();
-        }
+
         todoWithCategories = allocateRandomCategories(createTodo());
         todoWithNoCategory = createTodo();
         deletedCategory = createDeletedCategory();
     }
 
-    public Todo getTodoWithNoCategory() {
-        return todoWithNoCategory;
-    }
-
-    public Todo getTodoWithCategories() {
-        return todoWithCategories;
-    }
-
-    public Category getDeletedCategory() {
-        return deletedCategory;
-    }
 }

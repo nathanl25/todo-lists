@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import io.nology.todo_lists.category.Category;
 import io.nology.todo_lists.category.CategoryService;
 import io.nology.todo_lists.common.ValidationErrors;
+import io.nology.todo_lists.common.exceptions.NotFoundException;
 import io.nology.todo_lists.common.exceptions.ServiceValidationException;
 
 @Service
@@ -60,9 +61,16 @@ public class TodoService {
         return this.repo.findByNameLikeAndIsArchivedFalse(data.getName());
     }
 
-    public Todo updateTodo(Todo toBeUpdatedTodo, UpdateTodoDTO data) {
+    public Todo updateTodo(Todo toBeUpdatedTodo, UpdateTodoDTO data) throws NotFoundException {
         mapper.map(data, toBeUpdatedTodo);
+        if (data.hasCategoryIds()) {
+            List<Category> cats = this.categoryService.getByids(data.getCategoryIds());
+            toBeUpdatedTodo.setCategories(cats);
+        } else {
+            toBeUpdatedTodo.removeCategories();
+        }
         this.repo.save(toBeUpdatedTodo);
+        // System.out.println(toBeUpdatedTodo.toString());
         return toBeUpdatedTodo;
     }
 

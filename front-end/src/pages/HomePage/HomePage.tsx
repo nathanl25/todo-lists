@@ -8,10 +8,11 @@ import TodoFullView, {
   TodoData,
 } from '../../components/TodoFullView/TodoFullView';
 import CategoryFullCreate from '../../components/CategoryFullCreate/CategoryFullCreate';
-import TodoEdit from '../../components/TodoEdit/TodoEdit';
+// import TodoEdit from '../../components/TodoEdit/TodoEdit';
 import CategoryList from '../../containers/CategoryList/CategoryList';
 import QuickCreateBar from '../../containers/QuickCreateBar/QuickCreateBar';
 import Landing from '../../components/Landing/Landing';
+import TodoEditV2 from '../../components/TodoEdit/TodoEditV2';
 
 const HomePage = () => {
   const { todosData } = useContext(TodoContext);
@@ -23,7 +24,8 @@ const HomePage = () => {
       setModalContent(<TodoFullView data={data} />);
       setModalTitle('Todos');
     } else {
-      setModalContent(<TodoEdit showModal={setModalShown} values={data} />);
+      // setModalContent(<TodoEdit showModal={setModalShown} values={data} />);
+      setModalContent(<TodoEditV2 showModal={setModalShown} values={data} />);
       setModalTitle('Edit Todos');
     }
     setModalShown(true);

@@ -2,6 +2,7 @@ package io.nology.todo_lists.todo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import io.nology.todo_lists.todo.Todo.Status;
 import jakarta.persistence.EnumType;
@@ -28,15 +29,19 @@ public class UpdateTodoDTO {
         return description;
     }
 
-    @Size(min = 1)
-    private List<@Valid @Min(value = 1, message = "Invalid category inputted") Integer> todoIds;
+    // @Size(min = 1)
+    private Set<@Valid @Min(value = 1, message = "Invalid category inputted") Long> categoryIds;
 
-    public List<Integer> getTodoIds() {
-        return todoIds;
+    public Set<Long> getCategoryIds() {
+        return categoryIds;
     }
 
-    public void setTodoIds(List<Integer> todoIds) {
-        this.todoIds = todoIds;
+    public void setCategoryIds(Set<Long> categoryIds) {
+        this.categoryIds = categoryIds;
+    }
+
+    public boolean hasCategoryIds() {
+        return categoryIds != null;
     }
 
     @Future(message = "Due date must be set in the future")

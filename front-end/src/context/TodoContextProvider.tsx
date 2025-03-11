@@ -3,7 +3,7 @@ import { useState, createContext, useEffect } from 'react';
 import { TodoFormData } from '../components/TodoFullCreate/schema';
 import { TodoData } from '../components/TodoFullView/TodoFullView';
 import { CreateTodoFormData } from '../components/TodoFullCreate/TodoFullCreate';
-import { EditTodoFormData } from '../components/TodoEdit/TodoEdit';
+import { EditTodoFormData } from '../components/TodoEdit/TodoEditV2';
 
 import React from 'react';
 import { Bounce, toast } from 'react-toastify';
